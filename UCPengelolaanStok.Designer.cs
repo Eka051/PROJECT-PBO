@@ -43,7 +43,7 @@
             button6 = new Button();
             button5 = new Button();
             lblDashboard = new Label();
-            button4 = new Button();
+            btnLogout = new Button();
             btnTransaksi = new Button();
             button1 = new Button();
             leftPanel = new Panel();
@@ -227,24 +227,25 @@
             lblDashboard.TabIndex = 10;
             lblDashboard.Text = "Pengelolaan Stok";
             // 
-            // button4
+            // btnLogout
             // 
-            button4.AutoSize = true;
-            button4.BackColor = Color.Red;
-            button4.BackgroundImageLayout = ImageLayout.Zoom;
-            button4.Cursor = Cursors.Hand;
-            button4.Font = new Font("SF Pro Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.ForeColor = Color.White;
-            button4.Image = Properties.Resources.logoutBtn;
-            button4.ImageAlign = ContentAlignment.MiddleLeft;
-            button4.Location = new Point(3, 262);
-            button4.Name = "button4";
-            button4.Padding = new Padding(20, 0, 0, 0);
-            button4.Size = new Size(258, 58);
-            button4.TabIndex = 6;
-            button4.Text = "             Logout";
-            button4.TextAlign = ContentAlignment.MiddleLeft;
-            button4.UseVisualStyleBackColor = false;
+            btnLogout.AutoSize = true;
+            btnLogout.BackColor = Color.Red;
+            btnLogout.BackgroundImageLayout = ImageLayout.Zoom;
+            btnLogout.Cursor = Cursors.Hand;
+            btnLogout.Font = new Font("SF Pro Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Image = Properties.Resources.logoutBtn;
+            btnLogout.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLogout.Location = new Point(3, 262);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Padding = new Padding(20, 0, 0, 0);
+            btnLogout.Size = new Size(258, 58);
+            btnLogout.TabIndex = 6;
+            btnLogout.Text = "             Logout";
+            btnLogout.TextAlign = ContentAlignment.MiddleLeft;
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // btnTransaksi
             // 
@@ -264,6 +265,7 @@
             btnTransaksi.Text = "             Transaksi";
             btnTransaksi.TextAlign = ContentAlignment.MiddleLeft;
             btnTransaksi.UseVisualStyleBackColor = false;
+            btnTransaksi.Click += btnTransaksi_Click;
             // 
             // button1
             // 
@@ -289,7 +291,7 @@
             leftPanel.BackColor = Color.White;
             leftPanel.Controls.Add(btnDashboard);
             leftPanel.Controls.Add(btnPengelolaanProduk);
-            leftPanel.Controls.Add(button4);
+            leftPanel.Controls.Add(btnLogout);
             leftPanel.Controls.Add(btnTransaksi);
             leftPanel.Controls.Add(button1);
             leftPanel.Dock = DockStyle.Left;
@@ -393,7 +395,7 @@
         private Button button6;
         private Button button5;
         private Label lblDashboard;
-        private Button button4;
+        private Button btnLogout;
         private Button btnTransaksi;
         private Button button1;
         private Panel leftPanel;

@@ -29,6 +29,11 @@ namespace COFFE_SHARP
             {
                 MessageBox.Show("Login berhasil!", "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.FormParent.ShowDashboard();
+                ClearTextBox();
+            }
+            else if (string.IsNullOrEmpty(usernameBox.Text) || string.IsNullOrEmpty(passwordBox.Text))
+            {
+                MessageBox.Show("Username & Password tidak boleh kosong!", "FAILED", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -40,5 +45,12 @@ namespace COFFE_SHARP
         {
             passwordBox.PasswordChar = '*';
         }
+
+        public void ClearTextBox()
+        {
+            usernameBox.Text = "";
+            passwordBox.Text = "";
+        }
+
     }
 }

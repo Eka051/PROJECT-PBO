@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label7 = new Label();
+            labelHrgProduk = new Label();
             pictureBox2 = new PictureBox();
             panel4 = new Panel();
             button7 = new Button();
@@ -58,18 +58,18 @@
             topPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // label7
+            // labelHrgProduk
             // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.Transparent;
-            label7.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = Color.DarkOrange;
-            label7.Location = new Point(40, 191);
-            label7.Name = "label7";
-            label7.Size = new Size(105, 23);
-            label7.TabIndex = 2;
-            label7.Text = "Rp. 75.000";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
+            labelHrgProduk.AutoSize = true;
+            labelHrgProduk.BackColor = Color.Transparent;
+            labelHrgProduk.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelHrgProduk.ForeColor = Color.DarkOrange;
+            labelHrgProduk.Location = new Point(40, 191);
+            labelHrgProduk.Name = "labelHrgProduk";
+            labelHrgProduk.Size = new Size(105, 23);
+            labelHrgProduk.TabIndex = 2;
+            labelHrgProduk.Text = "Rp. 75.000";
+            labelHrgProduk.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox2
             // 
@@ -88,7 +88,7 @@
             panel4.BackgroundImageLayout = ImageLayout.Zoom;
             panel4.Controls.Add(button7);
             panel4.Controls.Add(button8);
-            panel4.Controls.Add(label7);
+            panel4.Controls.Add(labelHrgProduk);
             panel4.Controls.Add(label8);
             panel4.Controls.Add(pictureBox2);
             panel4.Location = new Point(628, 225);
@@ -220,6 +220,7 @@
             btnLogout.Text = "             Logout";
             btnLogout.TextAlign = ContentAlignment.MiddleLeft;
             btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // btnTransaksi
             // 
@@ -239,6 +240,7 @@
             btnTransaksi.Text = "             Transaksi";
             btnTransaksi.TextAlign = ContentAlignment.MiddleLeft;
             btnTransaksi.UseVisualStyleBackColor = false;
+            btnTransaksi.Click += btnTransaksi_Click;
             // 
             // button2
             // 
@@ -389,7 +391,7 @@
 
         #endregion
 
-        private Label label7;
+        private Label labelHrgProduk;
         private PictureBox pictureBox2;
         private Panel panel4;
         private Label label8;

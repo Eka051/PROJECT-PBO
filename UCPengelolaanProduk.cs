@@ -28,5 +28,19 @@ namespace COFFE_SHARP
         {
             mainForm.ShowKelolaStok();
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                mainForm.ShowLogin();
+            }
+        }
+
+        private void btnTransaksi_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowTransaksi();
+        }
     }
 }

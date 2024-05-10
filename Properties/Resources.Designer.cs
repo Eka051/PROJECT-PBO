@@ -73,6 +73,16 @@ namespace COFFE_SHARP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap addTransaction {
+            get {
+                object obj = ResourceManager.GetObject("addTransaction", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap adminLogo {
             get {
                 object obj = ResourceManager.GetObject("adminLogo", resourceCulture);
@@ -146,6 +156,16 @@ namespace COFFE_SHARP.Properties {
         internal static System.Drawing.Bitmap editIcon {
             get {
                 object obj = ResourceManager.GetObject("editIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap historyIconBlck {
+            get {
+                object obj = ResourceManager.GetObject("historyIconBlck", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -296,6 +316,26 @@ namespace COFFE_SHARP.Properties {
         internal static System.Drawing.Bitmap transaksiBlack {
             get {
                 object obj = ResourceManager.GetObject("transaksiBlack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap transaksiWhite {
+            get {
+                object obj = ResourceManager.GetObject("transaksiWhite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trsPanel {
+            get {
+                object obj = ResourceManager.GetObject("trsPanel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -9,6 +9,7 @@ namespace COFFE_SHARP
         UserControlDashboard dashboard;
         UCPengelolaanStok pengelolaanStok;
         UCPengelolaanProduk pengelolaanProduk;
+        UCTransaksi transaksi;
         System.Windows.Forms.Timer timer;
         public MainForm()
         {
@@ -18,21 +19,18 @@ namespace COFFE_SHARP
             dashboard = new UserControlDashboard(this);
             pengelolaanStok = new UCPengelolaanStok(this);
             pengelolaanProduk = new UCPengelolaanProduk(this);
-
-            splashScreen = new UCSplashScreen(); //Tampilan splashscreen awal dibuka selama 3 detik
+            transaksi = new UCTransaksi(this);
 
             this.Controls.Add(splashScreen);
             this.Controls.Add(login);
             this.Controls.Add(dashboard);
             this.Controls.Add(pengelolaanStok);
             this.Controls.Add(pengelolaanProduk);
+            this.Controls.Add(transaksi);
 
-
-            login.Visible = false;
-            dashboard.Visible = false;
-            splashScreen.Visible = true;
-            pengelolaanStok.Visible = false;
-            pengelolaanProduk.Visible = false;
+            HideAllUserControl();
+            ShowSplashScreen();
+           
 
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 3000;
@@ -40,59 +38,55 @@ namespace COFFE_SHARP
             timer.Start();
         }
 
-        public void HideAllUserControl()
-        {
-            
-        }
+        
         private void Timer_Tick(object sender, EventArgs e)
         {
             timer.Stop();
             ShowLogin();
         }
 
+        public void HideAllUserControl()
+        {
+            foreach (UserControl userControl in this.Controls)
+            {
+                userControl.Visible = false;
+            }
+        }
+
         public void ShowSplashScreen()
         {
+            HideAllUserControl();
             splashScreen.Visible = true;
-            login.Visible = false;
-            dashboard.Visible = false;
-            pengelolaanStok.Visible=false;
-            pengelolaanProduk.Visible=false;
         }
 
         public void ShowLogin()
         {
-            splashScreen.Visible = false;
+            HideAllUserControl();
             login.Visible = true;
-            dashboard.Visible = false;
-            pengelolaanStok.Visible = false;
-            pengelolaanProduk.Visible = false;
         }
 
         public void ShowDashboard()
         {
-            splashScreen.Visible = false;
-            login.Visible = false;
+            HideAllUserControl();
             dashboard.Visible = true;
-            pengelolaanStok.Visible = false;
-            pengelolaanProduk.Visible = false;
         }
 
         public void ShowKelolaStok()
         {
-            splashScreen.Visible = false;
-            login.Visible = false;
-            dashboard.Visible = false;
+            HideAllUserControl();
             pengelolaanStok.Visible = true;
-            pengelolaanProduk.Visible = false;
         }
 
         public void ShowKelolaProduk()
         {
-            splashScreen.Visible = false;
-            login.Visible = false;
-            dashboard.Visible = false;
-            pengelolaanStok.Visible = false;
+            HideAllUserControl();
             pengelolaanProduk.Visible = true;
+        }
+
+        public void ShowTransaksi()
+        {
+            HideAllUserControl();
+            transaksi.Visible = true;
         }
     }
 }

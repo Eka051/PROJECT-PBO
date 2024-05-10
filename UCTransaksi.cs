@@ -10,23 +10,13 @@ using System.Windows.Forms;
 
 namespace COFFE_SHARP
 {
-    public partial class UCPengelolaanStok : UserControl
+    public partial class UCTransaksi : UserControl
     {
         MainForm mainForm;
-        public UCPengelolaanStok(MainForm mainForm)
+        public UCTransaksi(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
-        }
-
-        private void btnDashboard_Click_1(object sender, EventArgs e)
-        {
-            mainForm.ShowDashboard();
-        }
-
-        private void btnPengelolaanProduk_Click(object sender, EventArgs e)
-        {
-            mainForm.ShowKelolaProduk();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -37,10 +27,20 @@ namespace COFFE_SHARP
                 mainForm.ShowLogin();
             }
         }
-
-        private void btnTransaksi_Click(object sender, EventArgs e)
+        private void btnDashboard_Click(object sender, EventArgs e)
         {
-            mainForm.ShowTransaksi();
+            mainForm.ShowDashboard();
         }
+
+        private void btnPengelolaanStok_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowKelolaStok();
+        }
+
+        private void btnPengelolaanProduk_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowKelolaProduk();
+        }
+
     }
 }

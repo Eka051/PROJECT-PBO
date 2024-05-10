@@ -13,6 +13,7 @@ namespace COFFE_SHARP
     public partial class UserControlDashboard : UserControl
     {
         MainForm mainForm;
+        UserControlLogin login;
         public UserControlDashboard(MainForm mainForm)
         {
             InitializeComponent();
@@ -27,6 +28,19 @@ namespace COFFE_SHARP
         private void btnPengelolaanProduk_Click(object sender, EventArgs e)
         {
             mainForm.ShowKelolaProduk();
+        }
+        private void btnTransaksi_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowTransaksi();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                mainForm.ShowLogin();
+            }
         }
 
     }
