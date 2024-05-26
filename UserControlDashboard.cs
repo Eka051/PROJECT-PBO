@@ -1,23 +1,43 @@
-﻿using System;
+﻿using COFFE_SHARP.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace COFFE_SHARP
 {
     public partial class UserControlDashboard : UserControl
     {
-        MainForm mainForm;
-        UserControlLogin login;
-        public UserControlDashboard(MainForm mainForm)
+        private MainForm mainForm;
+        private readonly IProdukContext produkContext;
+        private FlowLayoutPanel flowLayoutPanelproduk;
+
+        public UserControlDashboard(MainForm mainForm, IProdukContext produkContext)
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            this.produkContext = produkContext;
+            produkContext.ProdukDiubah += ProdukContext_ProdukDiubah;
+            LoadProducts();
+            LoadTotalProduk();
+            flowLayoutPanelproduk = flowLayoutDashboard;
+        }
+
+        private void ProdukContext_ProdukDiubah(object? sender, EventArgs e)
+        {
+            LoadProducts();
+            LoadTotalProduk();
+        }
+
+        private void LoadTotalProduk()
+        {
+            lblTotalProduk.Text = produkContext.TotalProduk().ToString();
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowDashboard();
         }
 
         private void btnPengelolaanStok_Click(object sender, EventArgs e)
@@ -29,6 +49,7 @@ namespace COFFE_SHARP
         {
             mainForm.ShowKelolaProduk();
         }
+
         private void btnTransaksi_Click(object sender, EventArgs e)
         {
             mainForm.ShowTransaksi();
@@ -43,5 +64,74 @@ namespace COFFE_SHARP
             }
         }
 
+
+        private Panel CreateProductPanel(Produk produk)
+        {
+            Panel dspProduk = new Panel
+            {
+                Size = new Size(190, 286),
+                BackgroundImage = Properties.Resources.dspProduk,
+                BackgroundImageLayout = ImageLayout.Zoom,
+                BorderStyle = BorderStyle.None,
+                Margin = new Padding(8)
+            };
+
+            PictureBox PBProduk = new PictureBox
+            {
+                Size = new Size(128, 128),
+                BackColor = Color.Transparent,
+                Location = new Point(32, 25),
+                SizeMode = PictureBoxSizeMode.Zoom
+            };
+            if (produk.gambarProduk != null)
+            {
+                PBProduk.Image = Image.FromStream(new MemoryStream(produk.gambarProduk));
+            }
+
+            Label lblNamaProduk = new Label
+            {
+                Text = produk.Nama,
+                Font = new Font("SF Pro Display", 13, FontStyle.Bold),
+                BackColor = Color.Transparent,
+                Location = new Point(10, 180),
+                Size = new Size(180, 23),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            Label lblHargaProduk = new Label
+            {
+                Text = "Rp. " + produk.Harga.ToString("N0"),
+                Font = new Font("SF Pro Display", 14, FontStyle.Bold),
+                BackColor = Color.Transparent,
+                ForeColor = Color.DarkOrange,
+                Location = new Point(40, 208),
+                Size = new Size(120, 23),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            dspProduk.Controls.Add(PBProduk);
+            dspProduk.Controls.Add(lblNamaProduk);
+            dspProduk.Controls.Add(lblHargaProduk);
+
+            return dspProduk;
+        }
+
+        public void LoadProducts()
+        {
+            flowLayoutDashboard.Controls.Clear();
+
+            List<Produk> products = produkContext.GetProdukFromDatabase();
+
+            foreach (Produk product in products)
+            {
+                Panel panel = CreateProductPanel(product);
+                flowLayoutDashboard.Controls.Add(panel);
+            }
+        }
+
+        private void UserControlDashboard_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

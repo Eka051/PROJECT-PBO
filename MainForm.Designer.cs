@@ -37,6 +37,7 @@
             ClientSize = new Size(1904, 1041);
             Name = "MainForm";
             Text = "Coffe Sharp";
+            Load += MainForm_Load;
             ResumeLayout(false);
         }
 

@@ -130,6 +130,9 @@
   <data name="kelolaStokWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kelolaStokWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="textBox bg1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\textBox bg1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Total Produk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Total Produk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,17 +142,26 @@
   <data name="Total Penjualan" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Total Penjualan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="iconImg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconImg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="textBox bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\textBox bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Sign Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sign Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Total Penghasilan" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Total Penghasilan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="transaksiWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\transaksiWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dspProduk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dspProduk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="minusIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\minusIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="historyIconBlck" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\historyIconBlck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -159,6 +171,9 @@
   </data>
   <data name="kelolaStokBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kelolaStokBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addTransaction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addTransaction.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DeleteButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DeleteButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -181,8 +196,8 @@
   <data name="kelolaProdukWhite" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kelolaProdukWhite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="minusIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\minusIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Total Penghasilan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Total Penghasilan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="coffe beans" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\coffe beans.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -190,8 +205,11 @@
   <data name="kelolaProdukBlack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\kelolaProdukBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bgUC1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bgUC1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bgRegister" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bgRegister.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bottom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,7 +217,7 @@
   <data name="adminLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\adminLogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="addTransaction" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\addTransaction.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bgRegister1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bgRegister1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

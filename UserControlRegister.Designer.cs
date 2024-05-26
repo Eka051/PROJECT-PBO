@@ -1,6 +1,6 @@
 ﻿namespace COFFE_SHARP
 {
-    partial class UserControlLogin
+    partial class UserControlRegister
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,18 +31,18 @@
             pictureBox3 = new PictureBox();
             label2 = new Label();
             panel1 = new Panel();
+            confirmPass = new TextBox();
+            label8 = new Label();
             passwordBox = new TextBox();
             usernameBox = new TextBox();
-            btnLogin = new Button();
+            btnRegister = new Button();
             label5 = new Label();
             label4 = new Label();
-            pictureBox1 = new PictureBox();
-            label1 = new Label();
-            label3 = new Label();
-            label6 = new Label();
             label7 = new Label();
-            btnRegister = new Button();
-            label8 = new Label();
+            label6 = new Label();
+            label3 = new Label();
+            label1 = new Label();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -50,13 +50,14 @@
             // 
             // pictureBox3
             // 
+            pictureBox3.BackColor = Color.Transparent;
             pictureBox3.Dock = DockStyle.Bottom;
             pictureBox3.Image = Properties.Resources.bottom;
             pictureBox3.Location = new Point(0, 879);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(1920, 201);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 7;
+            pictureBox3.TabIndex = 14;
             pictureBox3.TabStop = false;
             // 
             // label2
@@ -65,27 +66,53 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("SF Pro Display", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(167, 36);
+            label2.Location = new Point(160, 36);
             label2.Name = "label2";
-            label2.Size = new Size(114, 38);
+            label2.Size = new Size(130, 38);
             label2.TabIndex = 8;
-            label2.Text = "Sign In";
+            label2.Text = "Sign Up";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
-            panel1.BackgroundImage = Properties.Resources.Sign_Up;
+            panel1.BackgroundImage = Properties.Resources.bgRegister1;
             panel1.BackgroundImageLayout = ImageLayout.Zoom;
+            panel1.Controls.Add(confirmPass);
+            panel1.Controls.Add(label8);
             panel1.Controls.Add(passwordBox);
             panel1.Controls.Add(usernameBox);
-            panel1.Controls.Add(btnLogin);
+            panel1.Controls.Add(btnRegister);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label2);
-            panel1.Location = new Point(1344, 241);
+            panel1.Location = new Point(1344, 171);
             panel1.Name = "panel1";
-            panel1.Size = new Size(438, 416);
-            panel1.TabIndex = 9;
+            panel1.Size = new Size(438, 504);
+            panel1.TabIndex = 15;
+            panel1.Paint += panel1_Paint;
+            // 
+            // confirmPass
+            // 
+            confirmPass.BorderStyle = BorderStyle.None;
+            confirmPass.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            confirmPass.Location = new Point(103, 321);
+            confirmPass.Name = "confirmPass";
+            confirmPass.Size = new Size(267, 20);
+            confirmPass.TabIndex = 3;
+            confirmPass.TextChanged += confirmPass_TextChanged;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BackColor = Color.Transparent;
+            label8.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(46, 277);
+            label8.Name = "label8";
+            label8.Size = new Size(145, 19);
+            label8.TabIndex = 15;
+            label8.Text = "Konfirmasi Password";
+            label8.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // passwordBox
             // 
@@ -94,7 +121,7 @@
             passwordBox.Location = new Point(103, 233);
             passwordBox.Name = "passwordBox";
             passwordBox.Size = new Size(267, 20);
-            passwordBox.TabIndex = 14;
+            passwordBox.TabIndex = 2;
             passwordBox.TextChanged += passwordBox_TextChanged;
             // 
             // usernameBox
@@ -104,20 +131,20 @@
             usernameBox.Location = new Point(103, 142);
             usernameBox.Name = "usernameBox";
             usernameBox.Size = new Size(267, 20);
-            usernameBox.TabIndex = 13;
+            usernameBox.TabIndex = 1;
             // 
-            // btnLogin
+            // btnRegister
             // 
-            btnLogin.BackColor = Color.Chocolate;
-            btnLogin.Font = new Font("SF Pro Display", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogin.ForeColor = Color.Cornsilk;
-            btnLogin.Location = new Point(37, 315);
-            btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(363, 60);
-            btnLogin.TabIndex = 4;
-            btnLogin.Text = "Login";
-            btnLogin.UseVisualStyleBackColor = false;
-            btnLogin.Click += btnLogin_Click;
+            btnRegister.BackColor = Color.Chocolate;
+            btnRegister.Font = new Font("SF Pro Display", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRegister.ForeColor = Color.Cornsilk;
+            btnRegister.Location = new Point(37, 390);
+            btnRegister.Name = "btnRegister";
+            btnRegister.Size = new Size(363, 60);
+            btnRegister.TabIndex = 4;
+            btnRegister.Text = "Register";
+            btnRegister.UseVisualStyleBackColor = false;
+            btnRegister.Click += btnRegister_Click;
             // 
             // label5
             // 
@@ -145,26 +172,29 @@
             label4.Text = "Username";
             label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
+            // label7
             // 
-            pictureBox1.Image = Properties.Resources.Logo;
-            pictureBox1.Location = new Point(357, 169);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(329, 226);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 4;
-            pictureBox1.TabStop = false;
+            label7.AutoSize = true;
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("SF Pro Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(434, 675);
+            label7.Name = "label7";
+            label7.Size = new Size(196, 46);
+            label7.TabIndex = 18;
+            label7.Text = "Fakultas Ilmu Komputer\r\nUniversitas Jember";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // label6
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("SF Pro Display", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(289, 398);
-            label1.Name = "label1";
-            label1.Size = new Size(489, 64);
-            label1.TabIndex = 5;
-            label1.Text = "Aplikasi pencatatan dan penjualan produk\r\nKopi dan Kakao";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(476, 652);
+            label6.Name = "label6";
+            label6.Size = new Size(112, 23);
+            label6.TabIndex = 17;
+            label6.Text = "Develop by:";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -172,72 +202,50 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("SF Pro Display", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.Black;
-            label3.Location = new Point(1424, 141);
+            label3.Location = new Point(1370, 85);
             label3.Name = "label3";
-            label3.Size = new Size(305, 84);
-            label3.TabIndex = 9;
-            label3.Text = "Selamat Datang di\r\nCoffe Sharp!";
+            label3.Size = new Size(397, 42);
+            label3.TabIndex = 16;
+            label3.Text = "Buat Akun Untuk Masuk";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // label1
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(476, 722);
-            label6.Name = "label6";
-            label6.Size = new Size(112, 23);
-            label6.TabIndex = 10;
-            label6.Text = "Develop by:";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("SF Pro Display", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(289, 328);
+            label1.Name = "label1";
+            label1.Size = new Size(489, 64);
+            label1.TabIndex = 13;
+            label1.Text = "Aplikasi pencatatan dan penjualan produk\r\nKopi dan Kakao";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label7
+            // pictureBox1
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("SF Pro Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(434, 745);
-            label7.Name = "label7";
-            label7.Size = new Size(196, 46);
-            label7.TabIndex = 11;
-            label7.Text = "Fakultas Ilmu Komputer\r\nUniversitas Jember";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = Properties.Resources.Logo;
+            pictureBox1.Location = new Point(357, 99);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(329, 226);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 12;
+            pictureBox1.TabStop = false;
             // 
-            // btnRegister
-            // 
-            btnRegister.BackColor = Color.SaddleBrown;
-            btnRegister.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnRegister.ForeColor = SystemColors.ControlLightLight;
-            btnRegister.Location = new Point(1381, 731);
-            btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(363, 60);
-            btnRegister.TabIndex = 12;
-            btnRegister.Text = "Register";
-            btnRegister.UseVisualStyleBackColor = false;
-            btnRegister.Click += btnRegister_Click_1;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(1488, 686);
-            label8.Name = "label8";
-            label8.Size = new Size(151, 19);
-            label8.TabIndex = 13;
-            label8.Text = "Belum memiliki akun?";
-            // 
-            // UserControlLogin
+            // UserControlRegister
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label8);
-            Controls.Add(btnRegister);
+            BackgroundImage = Properties.Resources.bgUC1;
+            Controls.Add(pictureBox3);
+            Controls.Add(panel1);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label3);
-            Controls.Add(panel1);
-            Controls.Add(pictureBox3);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
-            Name = "UserControlLogin";
+            DoubleBuffered = true;
+            Name = "UserControlRegister";
             Size = new Size(1920, 1080);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel1.ResumeLayout(false);
@@ -252,17 +260,17 @@
         private PictureBox pictureBox3;
         private Label label2;
         private Panel panel1;
-        private Button btnLogin;
-        private Label label5;
-        private Label label4;
-        private PictureBox pictureBox1;
-        private Label label1;
-        private Label label3;
-        private Label label6;
-        private Label label7;
         private TextBox passwordBox;
         private TextBox usernameBox;
         private Button btnRegister;
+        private Label label5;
+        private Label label4;
+        private Label label7;
+        private Label label6;
+        private Label label3;
+        private Label label1;
+        private PictureBox pictureBox1;
+        private TextBox confirmPass;
         private Label label8;
     }
 }

@@ -28,15 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            labelHrgProduk = new Label();
-            pictureBox2 = new PictureBox();
-            panel4 = new Panel();
-            button7 = new Button();
-            button8 = new Button();
-            label8 = new Label();
             lblHrgProduk = new Label();
             lblNamaProduk = new Label();
-            pictureBox1 = new PictureBox();
+            PBProduk = new PictureBox();
             dspProduk = new Panel();
             button6 = new Button();
             button5 = new Button();
@@ -49,86 +43,14 @@
             logoPanel = new Panel();
             topPanel = new Panel();
             lblDashboard = new Label();
-            button9 = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            btnTambahProduk = new Button();
+            flowLayoutPanelProduk = new FlowLayoutPanel();
+            ((System.ComponentModel.ISupportInitialize)PBProduk).BeginInit();
             dspProduk.SuspendLayout();
             leftPanel.SuspendLayout();
             topPanel.SuspendLayout();
+            flowLayoutPanelProduk.SuspendLayout();
             SuspendLayout();
-            // 
-            // labelHrgProduk
-            // 
-            labelHrgProduk.AutoSize = true;
-            labelHrgProduk.BackColor = Color.Transparent;
-            labelHrgProduk.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelHrgProduk.ForeColor = Color.DarkOrange;
-            labelHrgProduk.Location = new Point(40, 191);
-            labelHrgProduk.Name = "labelHrgProduk";
-            labelHrgProduk.Size = new Size(105, 23);
-            labelHrgProduk.TabIndex = 2;
-            labelHrgProduk.Text = "Rp. 75.000";
-            labelHrgProduk.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.Transparent;
-            pictureBox2.Image = Properties.Resources.coffe_beans;
-            pictureBox2.Location = new Point(32, 25);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(128, 125);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
-            // 
-            // panel4
-            // 
-            panel4.BackgroundImage = Properties.Resources.dspProduk;
-            panel4.BackgroundImageLayout = ImageLayout.Zoom;
-            panel4.Controls.Add(button7);
-            panel4.Controls.Add(button8);
-            panel4.Controls.Add(labelHrgProduk);
-            panel4.Controls.Add(label8);
-            panel4.Controls.Add(pictureBox2);
-            panel4.Location = new Point(628, 225);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(190, 286);
-            panel4.TabIndex = 15;
-            // 
-            // button7
-            // 
-            button7.BackgroundImage = Properties.Resources.DeleteButton;
-            button7.BackgroundImageLayout = ImageLayout.Center;
-            button7.Font = new Font("SF Pro Display", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button7.Location = new Point(127, 223);
-            button7.Name = "button7";
-            button7.Size = new Size(33, 36);
-            button7.TabIndex = 6;
-            button7.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            button8.Font = new Font("SF Pro Display", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button8.Image = Properties.Resources.editIcon;
-            button8.ImageAlign = ContentAlignment.BottomLeft;
-            button8.Location = new Point(32, 223);
-            button8.Name = "button8";
-            button8.Size = new Size(89, 36);
-            button8.TabIndex = 5;
-            button8.Text = "       Edit";
-            button8.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.BackColor = Color.Transparent;
-            label8.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(32, 164);
-            label8.Name = "label8";
-            label8.Size = new Size(119, 23);
-            label8.TabIndex = 1;
-            label8.Text = "Kopi Arabica";
             // 
             // lblHrgProduk
             // 
@@ -148,22 +70,22 @@
             lblNamaProduk.AutoSize = true;
             lblNamaProduk.BackColor = Color.Transparent;
             lblNamaProduk.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNamaProduk.Location = new Point(32, 164);
+            lblNamaProduk.Location = new Point(7, 167);
             lblNamaProduk.Name = "lblNamaProduk";
-            lblNamaProduk.Size = new Size(125, 23);
+            lblNamaProduk.Size = new Size(179, 23);
             lblNamaProduk.TabIndex = 1;
-            lblNamaProduk.Text = "Kopi Robusta";
+            lblNamaProduk.Text = "Cokelat Strawberry";
             // 
-            // pictureBox1
+            // PBProduk
             // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.coffe_beans;
-            pictureBox1.Location = new Point(32, 25);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(128, 125);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            PBProduk.BackColor = Color.Transparent;
+            PBProduk.Image = Properties.Resources.coffe_beans;
+            PBProduk.Location = new Point(32, 25);
+            PBProduk.Name = "PBProduk";
+            PBProduk.Size = new Size(128, 128);
+            PBProduk.SizeMode = PictureBoxSizeMode.Zoom;
+            PBProduk.TabIndex = 0;
+            PBProduk.TabStop = false;
             // 
             // dspProduk
             // 
@@ -173,8 +95,8 @@
             dspProduk.Controls.Add(button5);
             dspProduk.Controls.Add(lblHrgProduk);
             dspProduk.Controls.Add(lblNamaProduk);
-            dspProduk.Controls.Add(pictureBox1);
-            dspProduk.Location = new Point(396, 225);
+            dspProduk.Controls.Add(PBProduk);
+            dspProduk.Location = new Point(3, 3);
             dspProduk.Name = "dspProduk";
             dspProduk.Size = new Size(190, 286);
             dspProduk.TabIndex = 14;
@@ -345,59 +267,62 @@
             lblDashboard.TabIndex = 10;
             lblDashboard.Text = "Pengelolaan Produk";
             // 
-            // button9
+            // btnTambahProduk
             // 
-            button9.AutoSize = true;
-            button9.BackColor = Color.SaddleBrown;
-            button9.BackgroundImageLayout = ImageLayout.Zoom;
-            button9.Cursor = Cursors.Hand;
-            button9.Font = new Font("SF Pro Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button9.ForeColor = Color.White;
-            button9.Image = Properties.Resources.addBtn;
-            button9.ImageAlign = ContentAlignment.MiddleLeft;
-            button9.Location = new Point(1579, 137);
-            button9.Name = "button9";
-            button9.Padding = new Padding(20, 0, 0, 0);
-            button9.Size = new Size(233, 58);
-            button9.TabIndex = 16;
-            button9.Text = "             Tambah Produk";
-            button9.TextAlign = ContentAlignment.MiddleLeft;
-            button9.UseVisualStyleBackColor = false;
+            btnTambahProduk.AutoSize = true;
+            btnTambahProduk.BackColor = Color.SaddleBrown;
+            btnTambahProduk.BackgroundImageLayout = ImageLayout.Zoom;
+            btnTambahProduk.Cursor = Cursors.Hand;
+            btnTambahProduk.Font = new Font("SF Pro Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnTambahProduk.ForeColor = Color.White;
+            btnTambahProduk.Image = Properties.Resources.addBtn;
+            btnTambahProduk.ImageAlign = ContentAlignment.MiddleLeft;
+            btnTambahProduk.Location = new Point(1579, 137);
+            btnTambahProduk.Name = "btnTambahProduk";
+            btnTambahProduk.Padding = new Padding(20, 0, 0, 0);
+            btnTambahProduk.Size = new Size(233, 58);
+            btnTambahProduk.TabIndex = 16;
+            btnTambahProduk.Text = "             Tambah Produk";
+            btnTambahProduk.TextAlign = ContentAlignment.MiddleLeft;
+            btnTambahProduk.UseVisualStyleBackColor = false;
+            btnTambahProduk.Click += btnTambahProduk_Click;
+            // 
+            // flowLayoutPanelProduk
+            // 
+            flowLayoutPanelProduk.Anchor = AnchorStyles.Top;
+            flowLayoutPanelProduk.AutoScroll = true;
+            flowLayoutPanelProduk.Controls.Add(dspProduk);
+            flowLayoutPanelProduk.Location = new Point(396, 202);
+            flowLayoutPanelProduk.Name = "flowLayoutPanelProduk";
+            flowLayoutPanelProduk.Size = new Size(1459, 790);
+            flowLayoutPanelProduk.TabIndex = 17;
             // 
             // UCPengelolaanProduk
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(button9);
-            Controls.Add(panel4);
-            Controls.Add(dspProduk);
+            Controls.Add(flowLayoutPanelProduk);
+            Controls.Add(btnTambahProduk);
             Controls.Add(lblDashboard);
             Controls.Add(leftPanel);
             Controls.Add(topPanel);
             Name = "UCPengelolaanProduk";
             Size = new Size(1920, 1080);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PBProduk).EndInit();
             dspProduk.ResumeLayout(false);
             dspProduk.PerformLayout();
             leftPanel.ResumeLayout(false);
             leftPanel.PerformLayout();
             topPanel.ResumeLayout(false);
+            flowLayoutPanelProduk.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label labelHrgProduk;
-        private PictureBox pictureBox2;
-        private Panel panel4;
-        private Label label8;
         private Label lblHrgProduk;
         private Label lblNamaProduk;
-        private PictureBox pictureBox1;
+        private PictureBox PBProduk;
         private Panel dspProduk;
         private Button btnLogout;
         private Button btnTransaksi;
@@ -410,8 +335,7 @@
         private Label lblDashboard;
         private Button button6;
         private Button button5;
-        private Button button7;
-        private Button button8;
-        private Button button9;
+        private Button btnTambahProduk;
+        private FlowLayoutPanel flowLayoutPanelProduk;
     }
 }

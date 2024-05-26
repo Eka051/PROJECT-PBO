@@ -93,6 +93,36 @@ namespace COFFE_SHARP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bgRegister {
+            get {
+                object obj = ResourceManager.GetObject("bgRegister", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bgRegister1 {
+            get {
+                object obj = ResourceManager.GetObject("bgRegister1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bgUC1 {
+            get {
+                object obj = ResourceManager.GetObject("bgUC1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bottom {
             get {
                 object obj = ResourceManager.GetObject("bottom", resourceCulture);
@@ -166,6 +196,16 @@ namespace COFFE_SHARP.Properties {
         internal static System.Drawing.Bitmap historyIconBlck {
             get {
                 object obj = ResourceManager.GetObject("historyIconBlck", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconImg {
+            get {
+                object obj = ResourceManager.GetObject("iconImg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -276,6 +316,26 @@ namespace COFFE_SHARP.Properties {
         internal static System.Drawing.Bitmap Sign_Up {
             get {
                 object obj = ResourceManager.GetObject("Sign Up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap textBox_bg {
+            get {
+                object obj = ResourceManager.GetObject("textBox bg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap textBox_bg1 {
+            get {
+                object obj = ResourceManager.GetObject("textBox bg1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

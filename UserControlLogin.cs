@@ -13,11 +13,11 @@ namespace COFFE_SHARP
 {
     public partial class UserControlLogin : UserControl
     {
-        MainForm FormParent;
-        public UserControlLogin(MainForm FormParent)
+        MainForm mainForm;
+        public UserControlLogin(MainForm mainForm)
         {
             InitializeComponent();
-            this.FormParent = FormParent;
+            this.mainForm = mainForm;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -28,7 +28,7 @@ namespace COFFE_SHARP
             if (login != null)
             {
                 MessageBox.Show("Login berhasil!", "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.FormParent.ShowDashboard();
+                this.mainForm.ShowDashboard();
                 ClearTextBox();
             }
             else if (string.IsNullOrEmpty(usernameBox.Text) || string.IsNullOrEmpty(passwordBox.Text))
@@ -52,5 +52,10 @@ namespace COFFE_SHARP
             passwordBox.Text = "";
         }
 
+
+        private void btnRegister_Click_1(object sender, EventArgs e)
+        {
+            mainForm.ShowRegister();
+        }
     }
 }

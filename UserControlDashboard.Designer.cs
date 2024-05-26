@@ -55,10 +55,8 @@
             lblHrgProduk = new Label();
             lblNamaProduk = new Label();
             pictureBox1 = new PictureBox();
-            panel4 = new Panel();
-            label7 = new Label();
-            label8 = new Label();
-            pictureBox2 = new PictureBox();
+            flowLayoutDashboard = new FlowLayoutPanel();
+            vScrollBar1 = new VScrollBar();
             topPanel.SuspendLayout();
             panelSB.SuspendLayout();
             leftPanel.SuspendLayout();
@@ -67,8 +65,7 @@
             panel3.SuspendLayout();
             dspProduk.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            flowLayoutDashboard.SuspendLayout();
             SuspendLayout();
             // 
             // topPanel
@@ -79,7 +76,7 @@
             topPanel.Dock = DockStyle.Top;
             topPanel.Location = new Point(0, 0);
             topPanel.Name = "topPanel";
-            topPanel.Size = new Size(1920, 110);
+            topPanel.Size = new Size(1886, 110);
             topPanel.TabIndex = 0;
             // 
             // panelSB
@@ -123,7 +120,7 @@
             leftPanel.Dock = DockStyle.Left;
             leftPanel.Location = new Point(0, 110);
             leftPanel.Name = "leftPanel";
-            leftPanel.Size = new Size(264, 970);
+            leftPanel.Size = new Size(264, 953);
             leftPanel.TabIndex = 1;
             // 
             // btnLogout
@@ -224,6 +221,7 @@
             btnDashboard.Text = "             Dashboard";
             btnDashboard.TextAlign = ContentAlignment.MiddleLeft;
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // lblDashboard
             // 
@@ -252,11 +250,11 @@
             lblTotalProduk.AutoSize = true;
             lblTotalProduk.BackColor = Color.Transparent;
             lblTotalProduk.Font = new Font("SF Pro Display", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTotalProduk.Location = new Point(130, 64);
+            lblTotalProduk.Location = new Point(131, 64);
             lblTotalProduk.Name = "lblTotalProduk";
-            lblTotalProduk.Size = new Size(30, 32);
-            lblTotalProduk.TabIndex = 2;
-            lblTotalProduk.Text = "2";
+            lblTotalProduk.Size = new Size(32, 32);
+            lblTotalProduk.TabIndex = 4;
+            lblTotalProduk.Text = "0";
             // 
             // label2
             // 
@@ -378,7 +376,7 @@
             dspProduk.Controls.Add(lblHrgProduk);
             dspProduk.Controls.Add(lblNamaProduk);
             dspProduk.Controls.Add(pictureBox1);
-            dspProduk.Location = new Point(396, 432);
+            dspProduk.Location = new Point(3, 3);
             dspProduk.Name = "dspProduk";
             dspProduk.Size = new Size(190, 286);
             dspProduk.TabIndex = 6;
@@ -418,59 +416,28 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // panel4
+            // flowLayoutDashboard
             // 
-            panel4.BackgroundImage = Properties.Resources.dspProduk;
-            panel4.BackgroundImageLayout = ImageLayout.Zoom;
-            panel4.Controls.Add(label7);
-            panel4.Controls.Add(label8);
-            panel4.Controls.Add(pictureBox2);
-            panel4.Location = new Point(628, 432);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(190, 286);
-            panel4.TabIndex = 7;
+            flowLayoutDashboard.AutoScroll = true;
+            flowLayoutDashboard.Controls.Add(dspProduk);
+            flowLayoutDashboard.Location = new Point(388, 400);
+            flowLayoutDashboard.Name = "flowLayoutDashboard";
+            flowLayoutDashboard.Size = new Size(1447, 615);
+            flowLayoutDashboard.TabIndex = 18;
             // 
-            // label7
+            // vScrollBar1
             // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.Transparent;
-            label7.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = Color.DarkOrange;
-            label7.Location = new Point(40, 208);
-            label7.Name = "label7";
-            label7.Size = new Size(105, 23);
-            label7.TabIndex = 2;
-            label7.Text = "Rp. 75.000";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.BackColor = Color.Transparent;
-            label8.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(32, 181);
-            label8.Name = "label8";
-            label8.Size = new Size(119, 23);
-            label8.TabIndex = 1;
-            label8.Text = "Kopi Arabica";
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.Transparent;
-            pictureBox2.Image = Properties.Resources.coffe_beans;
-            pictureBox2.Location = new Point(32, 25);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(128, 125);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
+            vScrollBar1.Location = new Point(1882, 224);
+            vScrollBar1.Name = "vScrollBar1";
+            vScrollBar1.Size = new Size(17, 825);
+            vScrollBar1.TabIndex = 19;
             // 
             // UserControlDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(panel4);
-            Controls.Add(dspProduk);
+            Controls.Add(vScrollBar1);
+            Controls.Add(flowLayoutDashboard);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -478,7 +445,8 @@
             Controls.Add(leftPanel);
             Controls.Add(topPanel);
             Name = "UserControlDashboard";
-            Size = new Size(1920, 1080);
+            Size = new Size(1886, 1063);
+            Load += UserControlDashboard_Load;
             topPanel.ResumeLayout(false);
             panelSB.ResumeLayout(false);
             panelSB.PerformLayout();
@@ -493,9 +461,7 @@
             dspProduk.ResumeLayout(false);
             dspProduk.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            flowLayoutDashboard.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -517,7 +483,6 @@
         private Panel panel2;
         private Panel panel3;
         private Panel dspProduk;
-        private Label lblTotalProduk;
         private Label label2;
         private Label label1;
         private Label lblTotalPenjualan;
@@ -529,9 +494,8 @@
         private Label lblHrgProduk;
         private Label lblNamaProduk;
         private PictureBox pictureBox1;
-        private Panel panel4;
-        private Label label7;
-        private Label label8;
-        private PictureBox pictureBox2;
+        private FlowLayoutPanel flowLayoutDashboard;
+        private Label lblTotalProduk;
+        private VScrollBar vScrollBar1;
     }
 }

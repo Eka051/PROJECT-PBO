@@ -1,30 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Npgsql;
-using System.Threading.Tasks;
+﻿using Npgsql;
+using System;
 
 namespace COFFE_SHARP.Models
 {
     internal class LoginAdminContext
     {
         private readonly string connStr;
+        
         public LoginAdminContext()
         {
-            connStr = "Server=localhost;Port=5432;Username=postgres;Password=dianeka@05;Database=CoffeSharp;CommandTimeout=10";
+            connStr = "Host=localhost;Port=5432;Username=postgres;Password=dianeka@05;Database=CoffeSharp;";
         }
+        
         public LoginAdmin Validate(string username, string password)
         {
             LoginAdmin loginAdmin = null;
-            string query = "SELECT * FROM admin_ WHERE username_admin = @username AND password_admin = @password";
+            string query = "SELECT * FROM admin WHERE username_admin = @username AND password_admin = @password";
+
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
             {
-                conn.Open();
+                conn.Open(); 
+
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@password", password);
+
                     using (NpgsqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
@@ -35,7 +36,10 @@ namespace COFFE_SHARP.Models
                         }
                     }
                 }
+
+                conn.Close();
             }
+
             return loginAdmin;
         }
     }

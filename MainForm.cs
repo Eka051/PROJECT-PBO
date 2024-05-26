@@ -1,28 +1,35 @@
-using Microsoft.VisualBasic.Logging;
+using COFFE_SHARP.Models;
+using System.Windows.Forms;
 
 namespace COFFE_SHARP
 {
     public partial class MainForm : Form
     {
-        UCSplashScreen splashScreen;
-        UserControlLogin login;
-        UserControlDashboard dashboard;
-        UCPengelolaanStok pengelolaanStok;
-        UCPengelolaanProduk pengelolaanProduk;
-        UCTransaksi transaksi;
-        System.Windows.Forms.Timer timer;
+        private ProdukContext produkContext;
+        private UCSplashScreen splashScreen;
+        private UserControlLogin login;
+        private UserControlRegister register;
+        private UserControlDashboard dashboard;
+        private UCPengelolaanStok pengelolaanStok;
+        private UCPengelolaanProduk pengelolaanProduk;
+        private UCTransaksi transaksi;
+        private System.Windows.Forms.Timer timer;
+
         public MainForm()
         {
             InitializeComponent();
+            produkContext = new ProdukContext();
             splashScreen = new UCSplashScreen();
             login = new UserControlLogin(this);
-            dashboard = new UserControlDashboard(this);
-            pengelolaanStok = new UCPengelolaanStok(this);
-            pengelolaanProduk = new UCPengelolaanProduk(this);
-            transaksi = new UCTransaksi(this);
+            register = new UserControlRegister(this);
+            dashboard = new UserControlDashboard(this, produkContext);
+            pengelolaanStok = new UCPengelolaanStok(this, produkContext);
+            pengelolaanProduk = new UCPengelolaanProduk(this, produkContext);
+            transaksi = new UCTransaksi(this, produkContext);
 
             this.Controls.Add(splashScreen);
             this.Controls.Add(login);
+            this.Controls.Add(register);
             this.Controls.Add(dashboard);
             this.Controls.Add(pengelolaanStok);
             this.Controls.Add(pengelolaanProduk);
@@ -30,7 +37,6 @@ namespace COFFE_SHARP
 
             HideAllUserControl();
             ShowSplashScreen();
-           
 
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 3000;
@@ -38,7 +44,6 @@ namespace COFFE_SHARP
             timer.Start();
         }
 
-        
         private void Timer_Tick(object sender, EventArgs e)
         {
             timer.Stop();
@@ -65,6 +70,13 @@ namespace COFFE_SHARP
             login.Visible = true;
         }
 
+
+        public void ShowRegister()
+        {
+            HideAllUserControl();
+            register.Visible = true;
+        }
+
         public void ShowDashboard()
         {
             HideAllUserControl();
@@ -87,6 +99,10 @@ namespace COFFE_SHARP
         {
             HideAllUserControl();
             transaksi.Visible = true;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
         }
     }
 }
