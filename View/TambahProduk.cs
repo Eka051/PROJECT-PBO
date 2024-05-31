@@ -55,7 +55,13 @@ namespace COFFE_SHARP
 
         private void TambahProduk_Load(object sender, EventArgs e)
         {
+            LoadKategori();
+        }
 
+        private void LoadKategori()
+        {
+            List<string> kategori = produkContext.GetAllNamaKategori();
+            kategoriProduk.Items.AddRange(kategori.ToArray());
         }
 
         private void BtnSimpan_Click_1(object sender, EventArgs e)
@@ -63,19 +69,20 @@ namespace COFFE_SHARP
             try
             {
                 int id = produkContext.GenerateIdProduk();
-                string nama = namaProduk.Text;
+                string nama_produk = namaProduk.Text;
+                string kategori = kategoriProduk.Text;
+                int id_kategori = produkContext.GetIdKategori(kategori);
                 int stok = 0;
                 decimal harga = decimal.Parse(hargaProduk.Text);
-                DateTime tanggalExp = tglExpProduk.Value;
                 byte[] gambar_produk = ImageToBinary(gambarProduk.Image);
 
                 Produk produk = new Produk()
                 {
                     Id = id,
-                    Nama = nama,
+                    Nama = nama_produk,
                     Stok = stok,
+                    Id_kategori = id_kategori,
                     Harga = harga,
-                    TanggalExp = tanggalExp,
                     gambarProduk = gambar_produk
                 };
 

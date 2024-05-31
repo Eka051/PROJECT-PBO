@@ -15,7 +15,7 @@ namespace COFFE_SHARP.Models
         {
             connStr = "Host=localhost;Port=5432;Username=postgres;Password=dianeka@05;Database=CoffeSharp;";
         }
-        public bool Daftar(string username, string hashedPassword)
+        public bool Daftar(string nama_admin, string username, string hashedPassword)
         {
             int id_admin = GenerateIdAdmin();
 
@@ -38,7 +38,7 @@ namespace COFFE_SHARP.Models
                 conn.Close();
             }
 
-            string query_insert = "INSERT INTO admin (id_admin, username_admin, password_admin) VALUES (@id, @username, @password) ";
+            string query_insert = "INSERT INTO admin (id_admin, nama, username_admin, password_admin) VALUES (@id, @nama, @username, @password) ";
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
             {
@@ -47,6 +47,7 @@ namespace COFFE_SHARP.Models
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query_insert, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id_admin);
+                    cmd.Parameters.AddWithValue("@nama", nama_admin);
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@password", hashedPassword);
 
@@ -84,12 +85,21 @@ namespace COFFE_SHARP.Models
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
                 {
                     object result = cmd.ExecuteScalar();
-                    int count = (result != null) ? Convert.ToInt32(result) : 0;
-                    id_admin = count + 1;
+
+                    if (result == DBNull.Value)
+                    {
+                        id_admin = 1;
+                    }
+                    else
+                    {
+                        id_admin = Convert.ToInt32(result) + 1;
+                    }
                 }
                 conn.Close();
             }
             return id_admin;
         }
+
+
     }
 }

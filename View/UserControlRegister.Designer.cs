@@ -31,6 +31,10 @@
             pictureBox3 = new PictureBox();
             label2 = new Label();
             panel1 = new Panel();
+            registerKey = new TextBox();
+            namaAdmin = new TextBox();
+            label9 = new Label();
+            namalbl = new Label();
             confirmPass = new TextBox();
             label8 = new Label();
             passwordBox = new TextBox();
@@ -43,6 +47,7 @@
             label3 = new Label();
             label1 = new Label();
             pictureBox1 = new PictureBox();
+            btnSignIn = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -66,7 +71,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("SF Pro Display", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(160, 36);
+            label2.Location = new Point(160, 20);
             label2.Name = "label2";
             label2.Size = new Size(130, 38);
             label2.TabIndex = 8;
@@ -75,8 +80,12 @@
             // 
             // panel1
             // 
-            panel1.BackgroundImage = Properties.Resources.bgRegister1;
+            panel1.BackgroundImage = Properties.Resources.RegisterBG;
             panel1.BackgroundImageLayout = ImageLayout.Zoom;
+            panel1.Controls.Add(registerKey);
+            panel1.Controls.Add(namaAdmin);
+            panel1.Controls.Add(label9);
+            panel1.Controls.Add(namalbl);
             panel1.Controls.Add(confirmPass);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(passwordBox);
@@ -87,15 +96,59 @@
             panel1.Controls.Add(label2);
             panel1.Location = new Point(1344, 171);
             panel1.Name = "panel1";
-            panel1.Size = new Size(438, 504);
+            panel1.Size = new Size(438, 620);
             panel1.TabIndex = 15;
             panel1.Paint += panel1_Paint;
+            // 
+            // registerKey
+            // 
+            registerKey.BorderStyle = BorderStyle.None;
+            registerKey.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            registerKey.Location = new Point(103, 462);
+            registerKey.Name = "registerKey";
+            registerKey.Size = new Size(267, 20);
+            registerKey.TabIndex = 4;
+            // 
+            // namaAdmin
+            // 
+            namaAdmin.BorderStyle = BorderStyle.None;
+            namaAdmin.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            namaAdmin.Location = new Point(103, 115);
+            namaAdmin.Name = "namaAdmin";
+            namaAdmin.Size = new Size(267, 20);
+            namaAdmin.TabIndex = 0;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.BackColor = Color.Transparent;
+            label9.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(51, 420);
+            label9.Name = "label9";
+            label9.Size = new Size(112, 19);
+            label9.TabIndex = 17;
+            label9.Text = "Kode Registrasi";
+            label9.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // namalbl
+            // 
+            namalbl.AutoSize = true;
+            namalbl.BackColor = Color.Transparent;
+            namalbl.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            namalbl.ForeColor = Color.White;
+            namalbl.Location = new Point(51, 72);
+            namalbl.Name = "namalbl";
+            namalbl.Size = new Size(49, 19);
+            namalbl.TabIndex = 16;
+            namalbl.Text = "Nama";
+            namalbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // confirmPass
             // 
             confirmPass.BorderStyle = BorderStyle.None;
             confirmPass.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            confirmPass.Location = new Point(103, 321);
+            confirmPass.Location = new Point(103, 375);
             confirmPass.Name = "confirmPass";
             confirmPass.Size = new Size(267, 20);
             confirmPass.TabIndex = 3;
@@ -107,7 +160,7 @@
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(46, 277);
+            label8.Location = new Point(46, 331);
             label8.Name = "label8";
             label8.Size = new Size(145, 19);
             label8.TabIndex = 15;
@@ -118,7 +171,7 @@
             // 
             passwordBox.BorderStyle = BorderStyle.None;
             passwordBox.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            passwordBox.Location = new Point(103, 233);
+            passwordBox.Location = new Point(103, 289);
             passwordBox.Name = "passwordBox";
             passwordBox.Size = new Size(267, 20);
             passwordBox.TabIndex = 2;
@@ -128,7 +181,7 @@
             // 
             usernameBox.BorderStyle = BorderStyle.None;
             usernameBox.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            usernameBox.Location = new Point(103, 142);
+            usernameBox.Location = new Point(103, 201);
             usernameBox.Name = "usernameBox";
             usernameBox.Size = new Size(267, 20);
             usernameBox.TabIndex = 1;
@@ -138,10 +191,10 @@
             btnRegister.BackColor = Color.Chocolate;
             btnRegister.Font = new Font("SF Pro Display", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRegister.ForeColor = Color.Cornsilk;
-            btnRegister.Location = new Point(37, 390);
+            btnRegister.Location = new Point(44, 530);
             btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(363, 60);
-            btnRegister.TabIndex = 4;
+            btnRegister.Size = new Size(350, 60);
+            btnRegister.TabIndex = 5;
             btnRegister.Text = "Register";
             btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click;
@@ -152,7 +205,7 @@
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(46, 188);
+            label5.Location = new Point(51, 245);
             label5.Name = "label5";
             label5.Size = new Size(72, 19);
             label5.TabIndex = 11;
@@ -165,7 +218,7 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(46, 96);
+            label4.Location = new Point(46, 157);
             label4.Name = "label4";
             label4.Size = new Size(77, 19);
             label4.TabIndex = 10;
@@ -232,11 +285,25 @@
             pictureBox1.TabIndex = 12;
             pictureBox1.TabStop = false;
             // 
+            // btnSignIn
+            // 
+            btnSignIn.BackColor = Color.SaddleBrown;
+            btnSignIn.Font = new Font("SF Pro Display", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSignIn.ForeColor = Color.Cornsilk;
+            btnSignIn.Location = new Point(1388, 813);
+            btnSignIn.Name = "btnSignIn";
+            btnSignIn.Size = new Size(350, 60);
+            btnSignIn.TabIndex = 24;
+            btnSignIn.Text = "Login";
+            btnSignIn.UseVisualStyleBackColor = false;
+            btnSignIn.Click += btnSignIn_Click;
+            // 
             // UserControlRegister
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.bgUC1;
+            Controls.Add(btnSignIn);
             Controls.Add(pictureBox3);
             Controls.Add(panel1);
             Controls.Add(label7);
@@ -272,5 +339,10 @@
         private PictureBox pictureBox1;
         private TextBox confirmPass;
         private Label label8;
+        private TextBox registerKey;
+        private TextBox namaAdmin;
+        private Label label9;
+        private Label namalbl;
+        private Button btnSignIn;
     }
 }

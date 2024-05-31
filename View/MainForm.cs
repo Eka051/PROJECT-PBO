@@ -6,6 +6,7 @@ namespace COFFE_SHARP
     public partial class MainForm : Form
     {
         private ProdukContext produkContext;
+        private LoginAdminContext loginAdminContext;
         private UCSplashScreen splashScreen;
         private UserControlLogin login;
         private UserControlRegister register;
@@ -19,8 +20,9 @@ namespace COFFE_SHARP
         {
             InitializeComponent();
             produkContext = new ProdukContext();
+            loginAdminContext = new LoginAdminContext();
             splashScreen = new UCSplashScreen();
-            login = new UserControlLogin(this);
+            login = new UserControlLogin(this, loginAdminContext);
             register = new UserControlRegister(this);
             dashboard = new UserControlDashboard(this, produkContext);
             pengelolaanStok = new UCPengelolaanStok(this, produkContext);

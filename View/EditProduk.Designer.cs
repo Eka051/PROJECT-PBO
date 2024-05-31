@@ -37,6 +37,8 @@
             labelNama = new Label();
             BtnSimpan = new Button();
             label1 = new Label();
+            label2 = new Label();
+            kategoriProduk = new ComboBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gambarProduk).BeginInit();
             panel2.SuspendLayout();
@@ -74,6 +76,7 @@
             BtnUpload.TabIndex = 12;
             BtnUpload.Text = "Upload Gambar";
             BtnUpload.UseVisualStyleBackColor = false;
+            BtnUpload.Click += BtnUpload_Click;
             // 
             // gambarProduk
             // 
@@ -125,7 +128,7 @@
             BtnSimpan.FlatStyle = FlatStyle.Popup;
             BtnSimpan.Font = new Font("SF Pro Display", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnSimpan.ForeColor = SystemColors.ControlLightLight;
-            BtnSimpan.Location = new Point(535, 522);
+            BtnSimpan.Location = new Point(535, 579);
             BtnSimpan.Name = "BtnSimpan";
             BtnSimpan.Size = new Size(131, 36);
             BtnSimpan.TabIndex = 19;
@@ -143,11 +146,33 @@
             label1.TabIndex = 16;
             label1.Text = "Harga Produk";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("SF Pro Display", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(345, 489);
+            label2.Name = "label2";
+            label2.Size = new Size(72, 19);
+            label2.TabIndex = 20;
+            label2.Text = "Kategori";
+            // 
+            // kategoriProduk
+            // 
+            kategoriProduk.DropDownStyle = ComboBoxStyle.DropDownList;
+            kategoriProduk.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kategoriProduk.FormattingEnabled = true;
+            kategoriProduk.Location = new Point(345, 519);
+            kategoriProduk.Name = "kategoriProduk";
+            kategoriProduk.Size = new Size(503, 27);
+            kategoriProduk.TabIndex = 21;
+            // 
             // EditProduk
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1184, 691);
+            Controls.Add(kategoriProduk);
+            Controls.Add(label2);
             Controls.Add(panel1);
             Controls.Add(BtnUpload);
             Controls.Add(gambarProduk);
@@ -156,7 +181,9 @@
             Controls.Add(BtnSimpan);
             Controls.Add(label1);
             Name = "EditProduk";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "EditProduk";
+            Load += EditProduk_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gambarProduk).EndInit();
@@ -177,5 +204,7 @@
         private Label labelNama;
         private Button BtnSimpan;
         private Label label1;
+        private Label label2;
+        private ComboBox kategoriProduk;
     }
 }

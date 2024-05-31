@@ -56,7 +56,7 @@ namespace COFFE_SHARP
 
         private Panel CreateProductPanel(Produk produk)
         {
-            
+
             Panel dspProduk = new Panel
             {
                 Size = new Size(190, 286),
@@ -93,61 +93,74 @@ namespace COFFE_SHARP
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
-            Label lblStok = new Label
+            TextBox txtStok = new TextBox
             {
-                Name = "lblStok",
+                Name = "txtStok",
                 Text = produk.Stok.ToString(),
                 Font = new Font("SF Pro Display", 18, FontStyle.Bold),
-                BackColor = Color.Transparent,
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.None,
                 ForeColor = Color.Black,
-                Location = new Point(80, 204),
-                Size = new Size(45, 40),
-                TextAlign = ContentAlignment.MiddleCenter
+                Location = new Point(70, 208),
+                Size = new Size(60, 40),
+                TextAlign = HorizontalAlignment.Center
+            };
+
+            txtStok.KeyDown += (sender, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (int.TryParse(txtStok.Text, out int stok))
+                    {
+                        int IdProduk = (int)dspProduk.Tag;
+                        produkContext.UpdateStok(IdProduk, stok);
+                        e.Handled = true; 
+                        e.SuppressKeyPress = true;
+                    }
+                }
             };
 
             Button btnSubs = new Button
             {
                 BackgroundImage = Properties.Resources.minusIcon,
                 BackgroundImageLayout = ImageLayout.Center,
-                Location = new Point(32, 208),
+                Location = new Point(28, 208),
                 Size = new Size(32, 32),
             };
             btnSubs.Click += (sender, e) =>
             {
-                Label lblStok = (Label)dspProduk.Controls.Find("lblStok", true)[0];
-                int stok = int.Parse(lblStok.Text);
-                stok--;
-                if (stok < 0)
+                if (int.TryParse(txtStok.Text, out int stok))
                 {
-                    stok = 0;
-                }
-                lblStok.Text = stok.ToString();
+                    stok--;
+                    txtStok.Text = stok.ToString();
 
-                int IdProduk = (int)dspProduk.Tag;
-                produkContext.UpdateStok(IdProduk, stok);
+                    int IdProduk = (int)dspProduk.Tag;
+                    produkContext.UpdateStok(IdProduk, stok);
+                }
             };
 
             Button btnAdd = new Button
             {
                 BackgroundImage = Properties.Resources.plusIcon,
                 BackgroundImageLayout = ImageLayout.Center,
-                Location = new Point(129, 208),
+                Location = new Point(133, 208),
                 Size = new Size(32, 32),
             };
             btnAdd.Click += (sender, e) =>
             {
-                Label lblStok = (Label)dspProduk.Controls.Find("lblStok", true)[0];
-                int stok = int.Parse(lblStok.Text);
-                stok++;
-                lblStok.Text = stok.ToString();
+                if (int.TryParse(txtStok.Text, out int stok))
+                {
+                    stok++;
+                    txtStok.Text = stok.ToString();
 
-                int IdProduk = (int)dspProduk.Tag;
-                produkContext.UpdateStok(IdProduk, stok);
+                    int IdProduk = (int)dspProduk.Tag;
+                    produkContext.UpdateStok(IdProduk, stok);
+                }
             };
 
             dspProduk.Controls.Add(PBProduk);
             dspProduk.Controls.Add(lblNamaProduk);
-            dspProduk.Controls.Add(lblStok);
+            dspProduk.Controls.Add(txtStok);
             dspProduk.Controls.Add(btnAdd);
             dspProduk.Controls.Add(btnSubs);
 
@@ -170,6 +183,11 @@ namespace COFFE_SHARP
                 Panel panel = CreateProductPanel(product);
                 flowLayoutPanelProduk.Controls.Add(panel);
             }
+        }
+
+        private void UCPengelolaanStok_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

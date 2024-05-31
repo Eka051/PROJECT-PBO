@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TambahProduk));
             gambarProduk = new PictureBox();
             BtnUpload = new Button();
             panel1 = new Panel();
@@ -37,8 +38,8 @@
             hargaProduk = new TextBox();
             label1 = new Label();
             label2 = new Label();
-            tglExpProduk = new DateTimePicker();
             BtnSimpan = new Button();
+            kategoriProduk = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)gambarProduk).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -138,18 +139,9 @@
             label2.Font = new Font("SF Pro Display", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(331, 432);
             label2.Name = "label2";
-            label2.Size = new Size(124, 19);
+            label2.Size = new Size(72, 19);
             label2.TabIndex = 8;
-            label2.Text = "Tanggal Expired";
-            // 
-            // tglExpProduk
-            // 
-            tglExpProduk.CalendarFont = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tglExpProduk.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tglExpProduk.Location = new Point(331, 464);
-            tglExpProduk.Name = "tglExpProduk";
-            tglExpProduk.Size = new Size(438, 27);
-            tglExpProduk.TabIndex = 9;
+            label2.Text = "Kategori";
             // 
             // BtnSimpan
             // 
@@ -165,13 +157,24 @@
             BtnSimpan.UseVisualStyleBackColor = false;
             BtnSimpan.Click += BtnSimpan_Click_1;
             // 
+            // kategoriProduk
+            // 
+            kategoriProduk.BackColor = SystemColors.ScrollBar;
+            kategoriProduk.DropDownStyle = ComboBoxStyle.DropDownList;
+            kategoriProduk.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            kategoriProduk.FormattingEnabled = true;
+            kategoriProduk.Location = new Point(331, 466);
+            kategoriProduk.Name = "kategoriProduk";
+            kategoriProduk.Size = new Size(503, 27);
+            kategoriProduk.TabIndex = 12;
+            // 
             // TambahProduk
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1184, 691);
+            Controls.Add(kategoriProduk);
             Controls.Add(BtnSimpan);
-            Controls.Add(tglExpProduk);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(panel2);
@@ -179,8 +182,10 @@
             Controls.Add(panel1);
             Controls.Add(BtnUpload);
             Controls.Add(gambarProduk);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "TambahProduk";
-            Text = "TambahProduk";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Tambah Produk";
             Load += TambahProduk_Load;
             ((System.ComponentModel.ISupportInitialize)gambarProduk).EndInit();
             panel1.ResumeLayout(false);
@@ -202,7 +207,7 @@
         private TextBox hargaProduk;
         private Label label1;
         private Label label2;
-        private DateTimePicker tglExpProduk;
         private Button BtnSimpan;
+        private ComboBox kategoriProduk;
     }
 }

@@ -1,14 +1,13 @@
-﻿using COFFE_SHARP.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
+using COFFE_SHARP.Models;
+using COFFE_SHARP.View;
+using System.Text;
+using System.Reflection;
 
 namespace COFFE_SHARP
 {
@@ -17,7 +16,9 @@ namespace COFFE_SHARP
         MainForm mainForm;
         IProdukContext produkContext;
         private List<Panel> cartItems = new List<Panel>();
-        private Dictionary<int, int> productQuantities = new Dictionary<int, int>();
+        private Dictionary<int, int> jumlahProduk = new Dictionary<int, int>();
+        private Dictionary<int, Panel> cartItemsById = new Dictionary<int, Panel>();
+        private List<DetailTransaksi> keranjangBelanja = new List<DetailTransaksi>();
 
         public UCTransaksi(MainForm mainForm, IProdukContext produkContext)
         {
@@ -126,41 +127,47 @@ namespace COFFE_SHARP
 
             Produk produk = (Produk)panel.Tag;
 
-            bool found = false;
-            foreach (Panel cartItem in cartItems)
+            if (cartItemsById.TryGetValue(produk.Id, out Panel cartItem))
             {
-                Produk cartProduk = (Produk)cartItem.Tag;
-                if (cartProduk.Id == produk.Id)
-                {
-                    found = true;
-                    UpdateCartItemQuantity(cartItem, 1);
-                    break;
-                }
+                UpdateCartItemQuantity(cartItem, 1);
             }
-
-            if (!found)
+            else
             {
                 Panel cartPanel = DaftarTransaksi(produk, 1);
                 cartItems.Add(cartPanel);
+                cartItemsById[produk.Id] = cartPanel;
                 flowLayoutCart.Controls.Add(cartPanel);
-                productQuantities[produk.Id] = 1;
+                jumlahProduk[produk.Id] = 1;
+
+                keranjangBelanja.Add(new DetailTransaksi
+                {
+                    IdProduk = produk.Id,
+                    HargaProduk = produk.Harga,
+                    JumlahProduk = 1
+                });
             }
             TotalHargaTransaksi();
         }
 
         private void UpdateCartItemQuantity(Panel cartItem, int increment)
         {
-            Label lblJumlahProduk = cartItem.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Name == "lblJumlahProduk");
+            TextBox txtJumlahProduk = cartItem.Controls.OfType<TextBox>().FirstOrDefault(lbl => lbl.Name == "txtJumlahProduk");
 
-            if (lblJumlahProduk != null)
+            if (txtJumlahProduk != null)
             {
-                int currentQuantity = int.Parse(lblJumlahProduk.Text);
+                int currentQuantity = int.Parse(txtJumlahProduk.Text);
                 int newQuantity = currentQuantity + increment;
-                lblJumlahProduk.Text = newQuantity.ToString();
+                txtJumlahProduk.Text = newQuantity.ToString();
 
                 if (cartItem.Tag is Produk produk)
                 {
-                    productQuantities[produk.Id] = newQuantity;
+                    jumlahProduk[produk.Id] = newQuantity;
+
+                    var detailTransaksi = keranjangBelanja.FirstOrDefault(dt => dt.IdProduk == produk.Id);
+                    if (detailTransaksi != null)
+                    {
+                        detailTransaksi.JumlahProduk = newQuantity;
+                    }
                 }
             }
 
@@ -184,10 +191,12 @@ namespace COFFE_SHARP
         {
             Panel panel = new Panel
             {
-                Size = new Size(380, 106),
-                BackColor = Color.WhiteSmoke,
+                Size = new Size(384, 114),
+                BackgroundImage = Properties.Resources.bgListProduk,
+                BackgroundImageLayout = ImageLayout.Center,
+                BackColor = Color.Transparent,
                 BorderStyle = BorderStyle.None,
-                Margin = new Padding(10),
+                Margin = new Padding(8),
                 Tag = produk
             };
 
@@ -224,26 +233,42 @@ namespace COFFE_SHARP
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
-            Label lblJumlahProduk = new Label
+            TextBox txtJumlahProduk = new TextBox
             {
-                Name = "lblJumlahProduk",
+                Name = "txtJumlahProduk",
                 Text = jumlah.ToString(),
                 Font = new Font("SF Pro Display", 18, FontStyle.Bold),
-                BackColor = Color.Transparent,
-                ForeColor = Color.DarkOrange,
-                Location = new Point(270, 65),
-                Size = new Size(45, 40),
-                TextAlign = ContentAlignment.MiddleCenter
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.None,
+                ForeColor = Color.Black,
+                Location = new Point(255, 68),
+                Size = new Size(65, 40),
+                TextAlign = HorizontalAlignment.Center
+            };
+
+            txtJumlahProduk.KeyDown += (sender, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (int.TryParse(txtJumlahProduk.Text, out int newQuantity))
+                    {
+                        int produkId = produk.Id;
+                        jumlahProduk[produkId] = newQuantity;
+                        TotalHargaTransaksi();
+                    }
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
             };
 
             Button btnSubs = new Button
             {
                 BackgroundImage = Properties.Resources.minusIcon,
                 BackgroundImageLayout = ImageLayout.Center,
-                Location = new Point(227, 68),
+                Location = new Point(220, 68),
                 Size = new Size(32, 32),
             };
-            btnSubs.Click += (sender, e) => subsTotal_Click(sender, e, lblJumlahProduk, produk.Id);
+            btnSubs.Click += (sender, e) => subsTotal_Click(sender, e, txtJumlahProduk, produk.Id);
 
             Button btnAdd = new Button
             {
@@ -252,13 +277,13 @@ namespace COFFE_SHARP
                 Location = new Point(324, 68),
                 Size = new Size(32, 32),
             };
-            btnAdd.Click += (sender, e) => addTotal_Click(sender, e, lblJumlahProduk, produk.Id);
+            btnAdd.Click += (sender, e) => addTotal_Click(sender, e, txtJumlahProduk, produk.Id);
 
             Button btnRemove = new Button
             {
                 BackgroundImage = Properties.Resources.DeleteButton,
                 BackgroundImageLayout = ImageLayout.Center,
-                Location = new Point(320, 10),
+                Location = new Point(324, 10),
                 Size = new Size(33, 36),
             };
             btnRemove.Click += (sender, e) => RemoveCartItem(panel, produk.Id);
@@ -266,7 +291,7 @@ namespace COFFE_SHARP
             panel.Controls.Add(PBProduk);
             panel.Controls.Add(lblNamaProduk);
             panel.Controls.Add(lblHargaProduk);
-            panel.Controls.Add(lblJumlahProduk);
+            panel.Controls.Add(txtJumlahProduk);
             panel.Controls.Add(btnSubs);
             panel.Controls.Add(btnAdd);
             panel.Controls.Add(btnRemove);
@@ -274,28 +299,28 @@ namespace COFFE_SHARP
             return panel;
         }
 
-        private void subsTotal_Click(object sender, EventArgs e, Label lblJumlahProduk, int produkId)
+        private void subsTotal_Click(object sender, EventArgs e, TextBox txtJumlahProduk, int produkId)
         {
-            int jumlah = int.Parse(lblJumlahProduk.Text);
+            int jumlah = int.Parse(txtJumlahProduk.Text);
             if (jumlah > 1)
             {
                 jumlah--;
-                lblJumlahProduk.Text = jumlah.ToString();
-                productQuantities[produkId] = jumlah;
+                txtJumlahProduk.Text = jumlah.ToString();
+                jumlahProduk[produkId] = jumlah;
             }
             else
             {
-                RemoveCartItem((Panel)lblJumlahProduk.Parent, produkId);
+                RemoveCartItem((Panel)txtJumlahProduk.Parent, produkId);
             }
             TotalHargaTransaksi();
         }
 
-        private void addTotal_Click(object sender, EventArgs e, Label lblJumlahProduk, int produkId)
+        private void addTotal_Click(object sender, EventArgs e, TextBox txtJumlahProduk, int produkId)
         {
-            int jumlah = int.Parse(lblJumlahProduk.Text);
+            int jumlah = int.Parse(txtJumlahProduk.Text);
             jumlah++;
-            lblJumlahProduk.Text = jumlah.ToString();
-            productQuantities[produkId] = jumlah;
+            txtJumlahProduk.Text = jumlah.ToString();
+            jumlahProduk[produkId] = jumlah;
             TotalHargaTransaksi();
         }
 
@@ -303,7 +328,7 @@ namespace COFFE_SHARP
         {
             flowLayoutCart.Controls.Remove(panel);
             cartItems.Remove(panel);
-            productQuantities.Remove(produkId);
+            jumlahProduk.Remove(produkId);
             TotalHargaTransaksi();
         }
 
@@ -314,7 +339,7 @@ namespace COFFE_SHARP
             {
                 if (cartItem.Tag is Produk produk)
                 {
-                    if (productQuantities.TryGetValue(produk.Id, out int jumlah))
+                    if (jumlahProduk.TryGetValue(produk.Id, out int jumlah))
                     {
                         totalHarga += (int)produk.Harga * jumlah;
                     }
@@ -325,7 +350,18 @@ namespace COFFE_SHARP
 
         private void btnLanjutTransaksi_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                int idAdmin = SessionInfo.idAdmin;
+                MetodePembayaran metodePembayaran = new MetodePembayaran(keranjangBelanja, idAdmin);
+                metodePembayaran.Show();
+            }
+            catch (TargetInvocationException ex)
+            {
+                MessageBox.Show("Error: " + ex.InnerException.Message);
+            }
         }
+
+        
     }
 }

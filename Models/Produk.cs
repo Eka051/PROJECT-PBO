@@ -10,9 +10,9 @@ namespace COFFE_SHARP.Models
     {
         public int Id { get; set; }
         public string Nama { get; set; }
+        public int Id_kategori { get; set; }
         public decimal Harga { get; set; }
         public int Stok { get; set; }
-        public DateTime TanggalExp { get; set; }
         public byte[] gambarProduk { get; set; }
     }
 

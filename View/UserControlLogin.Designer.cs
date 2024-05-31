@@ -50,6 +50,7 @@
             // 
             // pictureBox3
             // 
+            pictureBox3.BackColor = Color.Transparent;
             pictureBox3.Dock = DockStyle.Bottom;
             pictureBox3.Image = Properties.Resources.bottom;
             pictureBox3.Location = new Point(0, 879);
@@ -94,7 +95,7 @@
             passwordBox.Location = new Point(103, 233);
             passwordBox.Name = "passwordBox";
             passwordBox.Size = new Size(267, 20);
-            passwordBox.TabIndex = 14;
+            passwordBox.TabIndex = 2;
             passwordBox.TextChanged += passwordBox_TextChanged;
             // 
             // usernameBox
@@ -104,7 +105,7 @@
             usernameBox.Location = new Point(103, 142);
             usernameBox.Name = "usernameBox";
             usernameBox.Size = new Size(267, 20);
-            usernameBox.TabIndex = 13;
+            usernameBox.TabIndex = 0;
             // 
             // btnLogin
             // 
@@ -114,7 +115,7 @@
             btnLogin.Location = new Point(37, 315);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(363, 60);
-            btnLogin.TabIndex = 4;
+            btnLogin.TabIndex = 3;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
@@ -147,6 +148,7 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = Color.Transparent;
             pictureBox1.Image = Properties.Resources.Logo;
             pictureBox1.Location = new Point(357, 169);
             pictureBox1.Name = "pictureBox1";
@@ -158,6 +160,7 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("SF Pro Display", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(289, 398);
             label1.Name = "label1";
@@ -182,6 +185,7 @@
             // label6
             // 
             label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
             label6.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.Location = new Point(476, 722);
             label6.Name = "label6";
@@ -193,6 +197,7 @@
             // label7
             // 
             label7.AutoSize = true;
+            label7.BackColor = Color.Transparent;
             label7.Font = new Font("SF Pro Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label7.Location = new Point(434, 745);
             label7.Name = "label7";
@@ -209,7 +214,7 @@
             btnRegister.Location = new Point(1381, 731);
             btnRegister.Name = "btnRegister";
             btnRegister.Size = new Size(363, 60);
-            btnRegister.TabIndex = 12;
+            btnRegister.TabIndex = 20;
             btnRegister.Text = "Register";
             btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click_1;
@@ -228,6 +233,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.bgUC1;
+            BackgroundImageLayout = ImageLayout.Center;
             Controls.Add(label8);
             Controls.Add(btnRegister);
             Controls.Add(label7);
@@ -237,6 +244,7 @@
             Controls.Add(pictureBox3);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
+            DoubleBuffered = true;
             Name = "UserControlLogin";
             Size = new Size(1920, 1080);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();

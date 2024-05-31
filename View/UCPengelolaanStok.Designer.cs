@@ -202,6 +202,7 @@
             Controls.Add(topPanel);
             Name = "UCPengelolaanStok";
             Size = new Size(1920, 1080);
+            Load += UCPengelolaanStok_Load;
             leftPanel.ResumeLayout(false);
             leftPanel.PerformLayout();
             topPanel.ResumeLayout(false);

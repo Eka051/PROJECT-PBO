@@ -12,6 +12,9 @@ namespace COFFE_SHARP.Models
         void EditProduk(Produk produk);
         void UpdateStok(int idProduk, int stok);
         int GenerateIdProduk();
+        int GetIdKategori(string namaKategori);
+        List<string> GetAllNamaKategori();
+        List<string> GetNamaKategori(int idKategori);
         long TotalProduk();
         event EventHandler? ProdukDiubah;
     }
@@ -34,7 +37,7 @@ namespace COFFE_SHARP.Models
         public List<Produk> GetProdukFromDatabase()
         {
             var listProduk = new List<Produk>();
-            string query_select = "SELECT id_produk, nama, harga, stok, tanggal_exp, gambar_produk FROM produk ORDER BY id_produk";
+            string query_select = "SELECT id_produk, nama_produk, harga, stok, gambar_produk FROM produk ORDER BY id_produk";
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
             {
@@ -51,7 +54,6 @@ namespace COFFE_SHARP.Models
                                 Nama = reader.GetString(1),
                                 Harga = reader.GetDecimal(2),
                                 Stok = reader.GetInt32(3),
-                                TanggalExp = reader.GetDateTime(4),
                                 gambarProduk = reader["gambar_produk"] as byte[] ?? new byte[0]
                             };
                             listProduk.Add(produk);
@@ -64,7 +66,7 @@ namespace COFFE_SHARP.Models
 
         public void TambahProduk(Produk produk)
         {
-            string query_insert = "INSERT INTO produk (id_produk, nama, harga, stok, tanggal_exp, gambar_produk) VALUES (@id, @nama, @harga, @stok, @tanggalExp, @gambarProduk)";
+            string query_insert = "INSERT INTO produk (id_produk, nama_produk, kategori_id, harga, stok, gambar_produk) VALUES (@id, @nama, @kategori_id, @harga, @stok, @gambarProduk)";
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
             {
@@ -73,9 +75,9 @@ namespace COFFE_SHARP.Models
                 {
                     cmd.Parameters.AddWithValue("id", produk.Id);
                     cmd.Parameters.AddWithValue("nama", produk.Nama);
+                    cmd.Parameters.AddWithValue("kategori_id", produk.Id_kategori);
                     cmd.Parameters.AddWithValue("harga", produk.Harga);
                     cmd.Parameters.AddWithValue("stok", produk.Stok);
-                    cmd.Parameters.AddWithValue("tanggalExp", produk.TanggalExp);
                     cmd.Parameters.AddWithValue("gambarProduk", produk.gambarProduk);
                     cmd.ExecuteNonQuery();
                 }
@@ -103,7 +105,8 @@ namespace COFFE_SHARP.Models
 
         public void EditProduk(Produk produk)
         {
-            string query_update = "UPDATE produk SET nama = @nama, harga = @harga, stok = @stok, tanggal_exp = @tanggalExp, gambar_produk = @gambarProduk WHERE id_produk = @id";
+            string query_update = @"UPDATE produk SET nama_produk = @nama_produk, kategori_id = @Id_kategori, 
+                            harga = @harga, stok = @stok, gambar_produk = @gambarProduk WHERE id_produk = @id";
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
             {
@@ -111,10 +114,10 @@ namespace COFFE_SHARP.Models
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query_update, conn))
                 {
                     cmd.Parameters.AddWithValue("id", produk.Id);
-                    cmd.Parameters.AddWithValue("nama", produk.Nama);
+                    cmd.Parameters.AddWithValue("nama_produk", produk.Nama);
+                    cmd.Parameters.AddWithValue("Id_kategori", produk.Id_kategori);
                     cmd.Parameters.AddWithValue("harga", produk.Harga);
                     cmd.Parameters.AddWithValue("stok", produk.Stok);
-                    cmd.Parameters.AddWithValue("tanggalExp", produk.TanggalExp);
                     cmd.Parameters.AddWithValue("gambarProduk", produk.gambarProduk);
                     cmd.ExecuteNonQuery();
                 }
@@ -141,7 +144,6 @@ namespace COFFE_SHARP.Models
             OnProdukDiubah(EventArgs.Empty);
         }
 
-
         public int GenerateIdProduk()
         {
             string query_maxId = "SELECT COALESCE(MAX(id_produk), 0) FROM produk";
@@ -157,6 +159,76 @@ namespace COFFE_SHARP.Models
             }
 
             return maxId + 1;
+        }
+
+        public int GetIdKategori(string namaKategori)
+        {
+            string query_getIdKategori = "SELECT id_kategori FROM kategori WHERE nama_kategori = @namaKategori";
+            int idKategori;
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
+            {
+                conn.Open();
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query_getIdKategori, conn))
+                {
+                    cmd.Parameters.AddWithValue("namaKategori", namaKategori);
+                    object result = cmd.ExecuteScalar();
+                    idKategori = result != null ? (int)result : 0;
+                }
+            }
+
+            return idKategori;
+        }
+
+        public List<string> GetNamaKategori(int idKategori)
+        {
+            List<string> namaKategoriList = new List<string>();
+
+            string query = "SELECT nama_kategori FROM kategori WHERE id_kategori = @idKategori";
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
+            {
+                conn.Open();
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("idKategori", idKategori);
+                    using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string namaKategori = reader.GetString(0);
+                            namaKategoriList.Add(namaKategori);
+                        }
+                    }
+                }
+            }
+
+            return namaKategoriList;
+        }
+
+        public List<string> GetAllNamaKategori()
+        {
+            List<string> namaKategoriList = new List<string>();
+
+            string query = "SELECT nama_kategori FROM kategori";
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
+            {
+                conn.Open();
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                {
+                    using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string namaKategori = reader.GetString(0);
+                            namaKategoriList.Add(namaKategori);
+                        }
+                    }
+                }
+            }
+
+            return namaKategoriList;
         }
 
         public long TotalProduk()
@@ -176,5 +248,4 @@ namespace COFFE_SHARP.Models
             return totalProduk;
         }
     }
-
 }

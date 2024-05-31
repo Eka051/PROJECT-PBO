@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace COFFE_SHARP.Models
 {
-    internal class LoginAdmin
+    public class LoginAdmin
     {
-        private string username { get; set; }
-        private string password { get; set; }
+        private string username;
+        private string hashedPassword;
 
         public string Username
         {
@@ -19,13 +19,14 @@ namespace COFFE_SHARP.Models
 
         public string Password
         {
-            get { return password; }
-            set { password = value; }
+            get { return hashedPassword; }
+            set { hashedPassword = value; }
         }
-        public LoginAdmin(string username, string password)
+
+        public LoginAdmin(string username, string hashedPassword)
         {
             this.username = username;
-            this.password = password;
+            this.hashedPassword = hashedPassword;
         }
     }
 }

@@ -133,5 +133,18 @@ namespace COFFE_SHARP
         {
 
         }
+
+        //private void btnCariProduk_Click(object sender, EventArgs e)
+        //{
+        //    string keyword = txtCariProduk.Text;
+        //    List<Produk> products = produkContext.GetProdukFromDatabase(keyword);
+        //    flowLayoutPanelProduk.Controls.Clear();
+
+        //    foreach (Produk product in products)
+        //    {
+        //        Panel panel = CreateProductPanel(product);
+        //        flowLayoutPanelProduk.Controls.Add(panel);
+        //    }
+        //}
     }
 }

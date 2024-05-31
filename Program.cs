@@ -1,3 +1,5 @@
+using COFFE_SHARP.Models;
+
 namespace COFFE_SHARP
 {
     internal static class Program
