@@ -11,6 +11,7 @@ namespace COFFE_SHARP.Models
         void HapusProduk(int id);
         void EditProduk(Produk produk);
         void UpdateStok(int idProduk, int stok);
+        void TransaksiProduk(int idProduk, int stok);
         int GenerateIdProduk();
         int GetIdKategori(string namaKategori);
         List<string> GetAllNamaKategori();
@@ -247,5 +248,36 @@ namespace COFFE_SHARP.Models
 
             return totalProduk;
         }
+
+        public void TransaksiProduk(int idProduk, int jumlahTerjual)
+        {
+            using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
+            {
+                conn.Open();
+                using (var transaksiProduk = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        string query_updateStok = "UPDATE produk SET stok = stok - @jumlah WHERE id_produk = @id";
+                        using (NpgsqlCommand cmd = new NpgsqlCommand(query_updateStok, conn))
+                        {
+                            cmd.Parameters.AddWithValue("id", idProduk);
+                            cmd.Parameters.AddWithValue("jumlah", jumlahTerjual);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        transaksiProduk.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaksiProduk.Rollback();
+                        throw;
+                    }
+                }
+            }
+
+            OnProdukDiubah(EventArgs.Empty);
+        }
+
     }
 }

@@ -39,7 +39,9 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Coffe Sharp";
+            WindowState = FormWindowState.Maximized;
             Load += MainForm_Load;
             ResumeLayout(false);
         }

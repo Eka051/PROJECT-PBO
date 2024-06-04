@@ -112,10 +112,19 @@ namespace COFFE_SHARP
                 {
                     if (int.TryParse(txtStok.Text, out int stok))
                     {
+                        if (stok < 0)
+                        {
+                            MessageBox.Show("Stok tidak boleh kurang dari 0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                         int IdProduk = (int)dspProduk.Tag;
                         produkContext.UpdateStok(IdProduk, stok);
                         e.Handled = true; 
                         e.SuppressKeyPress = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Stok harus berupa angka", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             };
@@ -131,11 +140,15 @@ namespace COFFE_SHARP
             {
                 if (int.TryParse(txtStok.Text, out int stok))
                 {
-                    stok--;
-                    txtStok.Text = stok.ToString();
+                    if (stok > 0)
+                    {
+                        stok--;
+                        txtStok.Text = stok.ToString();
 
-                    int IdProduk = (int)dspProduk.Tag;
-                    produkContext.UpdateStok(IdProduk, stok);
+                        int IdProduk = (int)dspProduk.Tag;
+                        produkContext.UpdateStok(IdProduk, stok);
+                    }
+
                 }
             };
 
@@ -167,10 +180,7 @@ namespace COFFE_SHARP
             return dspProduk;
         }
 
-        private void BtnSubs_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void LoadProducts()
         {

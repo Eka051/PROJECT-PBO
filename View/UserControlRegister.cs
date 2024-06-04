@@ -29,11 +29,11 @@ namespace COFFE_SHARP
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            string nama = namaAdmin.Text;
-            string username = usernameBox.Text;
-            string password = passwordBox.Text;
-            string confirmPassword = confirmPass.Text;
-            string kodeRegistrasi = registerKey.Text;
+            string nama = namaAdmin.Text.Trim();
+            string username = usernameBox.Text.Trim();
+            string password = passwordBox.Text.Trim();
+            string confirmPassword = confirmPass.Text.Trim();
+            string kodeRegistrasi = registerKey.Text.Trim();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(kodeRegistrasi))
             {

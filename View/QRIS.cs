@@ -1,34 +1,77 @@
-﻿using System;
+﻿using COFFE_SHARP.Models;
+using QRCoder;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QRCoder;
 
 namespace COFFE_SHARP.View
 {
-    public partial class QRIS : UserControl
+    public partial class QRIS : Form
     {
-        public QRIS()
+        string kode_qr = "https://steel-hans-porter-voters.trycloudflare.com";
+        private static readonly HttpClient client = new HttpClient();
+        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        private int IDMetode;
+        UCTransaksi ucTransaksi;
+        private decimal jumlahPembayaran;
+
+        public QRIS(int iDMetode, UCTransaksi ucTransaksi)
         {
             InitializeComponent();
+            Task.Run(() => MonitorCloseFlag(cancellationTokenSource.Token));
+            this.IDMetode = iDMetode;
+            this.ucTransaksi = ucTransaksi;
+            this.FormClosing += QRIS_FormClosing;
         }
 
-        public void GenerateQRCode(string paymentUrl)
+        private async Task MonitorCloseFlag(CancellationToken cancellationToken)
         {
-            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            while (!cancellationToken.IsCancellationRequested)
             {
-                QRCodeData qrCodeData = qrGenerator.CreateQrCode(paymentUrl, QRCodeGenerator.ECCLevel.Q);
-                using (QRCode qrCode = new QRCode(qrCodeData))
+                try
                 {
-                    Bitmap qrCodeImage = qrCode.GetGraphic(20);
-                    pictQRIS.Image = qrCodeImage;
+                    var response = await client.GetStringAsync(kode_qr + "/check");
+                    dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(response);
+                    bool closeFlag = json.close_flag;
+
+                    if (closeFlag)
+                    {
+                        jumlahPembayaran = ucTransaksi.GetTotalHarga();
+                        MessageBox.Show("Pembayaran Berhasil ;)", "Pembayaran", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Invoke(new System.Action(() => this.Close()));
+                        break;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                await Task.Delay(1000, cancellationToken);
             }
+        }
+
+        private void QRIS_Load(object sender, EventArgs e)
+        {
+            string url_trigger = kode_qr + "/set";
+            QRCoder.QRCodeGenerator qr_baru = new QRCoder.QRCodeGenerator();
+            var Data_qr = qr_baru.CreateQrCode(url_trigger, QRCodeGenerator.ECCLevel.H);
+            var QR = new QRCoder.QRCode(Data_qr);
+            pictQRIS.Image = QR.GetGraphic(100);
+        }
+
+        private void QRIS_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (jumlahPembayaran > 0)
+            {
+                ucTransaksi.SimpanTransaksi(IDMetode, jumlahPembayaran);
+            }
+
+            Struk struk = new Struk();
+            struk.Show();
         }
     }
 }

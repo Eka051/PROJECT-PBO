@@ -1,6 +1,6 @@
 ﻿namespace COFFE_SHARP.View
 {
-    partial class MetodePembayaran
+    partial class Pembayaran
     {
         /// <summary>
         /// Required designer variable.
@@ -34,42 +34,42 @@
             // 
             // btnTunai
             // 
-            btnTunai.BackColor = Color.Wheat;
-            btnTunai.Font = new Font("SF Pro Display", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTunai.BackColor = Color.SandyBrown;
+            btnTunai.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTunai.Image = Properties.Resources.tunai;
             btnTunai.ImageAlign = ContentAlignment.MiddleLeft;
-            btnTunai.Location = new Point(241, 158);
+            btnTunai.Location = new Point(140, 245);
             btnTunai.Name = "btnTunai";
-            btnTunai.Size = new Size(361, 118);
+            btnTunai.Size = new Size(430, 131);
             btnTunai.TabIndex = 0;
-            btnTunai.Text = "Tunai";
+            btnTunai.Text = "TUNAI";
             btnTunai.UseVisualStyleBackColor = false;
+            btnTunai.Click += btnTunai_Click;
             // 
             // btnQRIS
             // 
-            btnQRIS.BackColor = Color.Wheat;
-            btnQRIS.Font = new Font("SF Pro Display", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnQRIS.BackColor = Color.SandyBrown;
+            btnQRIS.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnQRIS.Image = Properties.Resources.qris;
             btnQRIS.ImageAlign = ContentAlignment.MiddleLeft;
-            btnQRIS.Location = new Point(241, 316);
+            btnQRIS.Location = new Point(140, 413);
             btnQRIS.Name = "btnQRIS";
-            btnQRIS.Size = new Size(361, 118);
+            btnQRIS.Size = new Size(430, 131);
             btnQRIS.TabIndex = 1;
             btnQRIS.Text = "QRIS";
             btnQRIS.UseVisualStyleBackColor = false;
-            btnQRIS.Click += btnBayar_Click;
+            btnQRIS.Click += btnQRIS_Click;
             // 
-            // MetodePembayaran
+            // Pembayaran
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(884, 731);
+            ClientSize = new Size(730, 861);
             Controls.Add(btnQRIS);
             Controls.Add(btnTunai);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            Name = "MetodePembayaran";
+            Name = "Pembayaran";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "MetodePembayaran";
+            Text = "Pembayaran";
             ResumeLayout(false);
         }
 

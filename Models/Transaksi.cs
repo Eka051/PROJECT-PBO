@@ -11,6 +11,7 @@ namespace COFFE_SHARP.Models
         public int IdTransaksi { get; set; }
         public DateTime TanggalTransaksi { get; set; }
         public int IdAdmin { get; set; }
+        public string NamaAdmin { get; set; }
         public decimal TotalHarga { get; set; }
         public int IdPembayaran { get; set; }
         public List<DetailTransaksi> DetailTransaksiList { get; set; }
@@ -22,5 +23,12 @@ namespace COFFE_SHARP.Models
         public int IdProduk { get; set; }
         public int JumlahProduk { get; set; }
         public decimal HargaProduk { get; set; }
+    }
+
+    public class DataPembayaran
+    {
+        public int IdPembayaran { get; set; }
+        public decimal JumlahPembayaran { get; set; }
+        public int IdMetode { get; set; }
     }
 }

@@ -33,7 +33,13 @@ namespace COFFE_SHARP
         private void BtnSimpan_Click_1(object sender, EventArgs e)
         {
             Produk.Nama = namaProduk.Text;
-            Produk.Harga = decimal.Parse(hargaProduk.Text);
+            //Produk.Harga = decimal.Parse(hargaProduk.Text);
+            if(!decimal.TryParse(hargaProduk.Text, out decimal harga))
+            {
+                MessageBox.Show("Harga produk harus berupa angka.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Produk.Harga = harga;
             if (kategoriProduk.SelectedItem != null)
             {
                 Produk.Id_kategori = produkContext.GetIdKategori(kategoriProduk.SelectedItem.ToString());

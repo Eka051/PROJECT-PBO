@@ -116,11 +116,15 @@ namespace COFFE_SHARP
             return dspProduk;
         }
 
-        public void LoadProducts()
+        public void LoadProducts(string filter = "")
         {
             flowLayoutDashboard.Controls.Clear();
 
             List<Produk> products = produkContext.GetProdukFromDatabase();
+            if(!string.IsNullOrEmpty(filter))
+            {
+                products = products.Where(p => p.Nama.ToLower().Contains(filter.ToLower())).ToList();
+            }
 
             foreach (Produk product in products)
             {
@@ -134,17 +138,11 @@ namespace COFFE_SHARP
 
         }
 
-        //private void btnCariProduk_Click(object sender, EventArgs e)
-        //{
-        //    string keyword = txtCariProduk.Text;
-        //    List<Produk> products = produkContext.GetProdukFromDatabase(keyword);
-        //    flowLayoutPanelProduk.Controls.Clear();
+        private void srcBox_TextChanged(object sender, EventArgs e)
+        {
+            string filter = srcBox.Text;
+            LoadProducts(filter);
+        }
 
-        //    foreach (Produk product in products)
-        //    {
-        //        Panel panel = CreateProductPanel(product);
-        //        flowLayoutPanelProduk.Controls.Add(panel);
-        //    }
-        //}
     }
 }

@@ -5,9 +5,10 @@ using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using COFFE_SHARP.Models;
-using COFFE_SHARP.View;
 using System.Text;
 using System.Reflection;
+using System.Net;
+using COFFE_SHARP.View;
 
 namespace COFFE_SHARP
 {
@@ -182,8 +183,11 @@ namespace COFFE_SHARP
 
             foreach (Produk product in products)
             {
-                Panel panel = CreateProductPanel(product);
-                flowLayoutPanelProduk.Controls.Add(panel);
+                if (product.Stok > 0)
+                {
+                    Panel panel = CreateProductPanel(product);
+                    flowLayoutPanelProduk.Controls.Add(panel);
+                }
             }
         }
 
@@ -253,8 +257,35 @@ namespace COFFE_SHARP
                     if (int.TryParse(txtJumlahProduk.Text, out int newQuantity))
                     {
                         int produkId = produk.Id;
-                        jumlahProduk[produkId] = newQuantity;
-                        TotalHargaTransaksi();
+                        var detailTransaksi = keranjangBelanja.FirstOrDefault(dt => dt.IdProduk == produkId);
+                        if (detailTransaksi == null && newQuantity <= produk.Stok)
+                        {
+                            jumlahProduk[produkId] = newQuantity;
+                            keranjangBelanja.Add(new DetailTransaksi
+                            {
+                                IdProduk = produkId,
+                                JumlahProduk = newQuantity,
+                                HargaProduk = produk.Harga
+                            });
+                            TotalHargaTransaksi();
+                        }
+                        else if (detailTransaksi != null)
+                        {
+                            if (newQuantity <= produk.Stok)
+                            {
+                                jumlahProduk[produkId] = newQuantity;
+                                detailTransaksi.JumlahProduk = newQuantity;
+                                TotalHargaTransaksi();
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Stok produk tersisa hanya {produk.Stok}!", "EROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Input harus berupa angka!", "EROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     e.Handled = true;
                     e.SuppressKeyPress = true;
@@ -307,6 +338,11 @@ namespace COFFE_SHARP
                 jumlah--;
                 txtJumlahProduk.Text = jumlah.ToString();
                 jumlahProduk[produkId] = jumlah;
+                var detailTransaksi = keranjangBelanja.FirstOrDefault(dt => dt.IdProduk == produkId);
+                if (detailTransaksi != null)
+                {
+                    detailTransaksi.JumlahProduk = jumlah;
+                }
             }
             else
             {
@@ -321,6 +357,11 @@ namespace COFFE_SHARP
             jumlah++;
             txtJumlahProduk.Text = jumlah.ToString();
             jumlahProduk[produkId] = jumlah;
+            var detailTransaksi = keranjangBelanja.FirstOrDefault(dt => dt.IdProduk == produkId);
+            if (detailTransaksi != null)
+            {
+                detailTransaksi.JumlahProduk = jumlah;
+            }
             TotalHargaTransaksi();
         }
 
@@ -328,7 +369,9 @@ namespace COFFE_SHARP
         {
             flowLayoutCart.Controls.Remove(panel);
             cartItems.Remove(panel);
+            cartItemsById.Remove(produkId);
             jumlahProduk.Remove(produkId);
+            keranjangBelanja.RemoveAll(dt => dt.IdProduk == produkId);
             TotalHargaTransaksi();
         }
 
@@ -348,20 +391,93 @@ namespace COFFE_SHARP
             totalHargaTrs.Text = "Rp. " + totalHarga.ToString("N0");
         }
 
+        public int GetTotalHarga()
+        {
+            int totalHarga = 0;
+            foreach (Panel cartItem in cartItems)
+            {
+                if (cartItem.Tag is Produk produk)
+                {
+                    if (jumlahProduk.TryGetValue(produk.Id, out int jumlah))
+                    {
+                        totalHarga += (int)produk.Harga * jumlah;
+                    }
+                }
+            }
+            return totalHarga;
+        }
+
         private void btnLanjutTransaksi_Click(object sender, EventArgs e)
         {
-            try
+            int Id_admin = SessionInfo.idAdmin;
+            int IDMetode = 1;
+            if (cartItems.Count > 0)
             {
-                int idAdmin = SessionInfo.idAdmin;
-                MetodePembayaran metodePembayaran = new MetodePembayaran(keranjangBelanja, idAdmin);
-                metodePembayaran.Show();
+                Pembayaran pembayaran = new Pembayaran(this, new Tunai(IDMetode, this));
+                pembayaran.Show();
             }
-            catch (TargetInvocationException ex)
+            else
             {
-                MessageBox.Show("Error: " + ex.InnerException.Message);
+                MessageBox.Show("Keranjang belanja masih kosong!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        
+        public void SimpanTransaksi(int IDMetode, decimal jumlahPembayaran)
+        {
+            TransaksiContext transaksiContext = new TransaksiContext();
+
+            Transaksi transaksi = new Transaksi
+            {
+                TanggalTransaksi = DateTime.Now,
+                TotalHarga = GetTotalHarga(),
+                IdPembayaran = IDMetode,
+                DetailTransaksiList = new List<DetailTransaksi>()
+            };
+
+            foreach (Panel cartItem in cartItems)
+            {
+                if (cartItem.Tag is Produk produk)
+                {
+                    if (jumlahProduk.TryGetValue(produk.Id, out int jumlah))
+                    {
+                        DetailTransaksi detailTransaksi = new DetailTransaksi
+                        {
+                            IdProduk = produk.Id,
+                            JumlahProduk = jumlah,
+                            HargaProduk = produk.Harga
+                        };
+                        transaksi.DetailTransaksiList.Add(detailTransaksi);
+                    }
+                }
+            }
+
+            DataPembayaran pembayaran = new DataPembayaran
+            {
+                JumlahPembayaran = jumlahPembayaran,
+                IdMetode = IDMetode
+            };
+
+            transaksiContext.SimpanTransaksi(transaksi, pembayaran);
+
+            foreach (DetailTransaksi detail in transaksi.DetailTransaksiList)
+            {
+                Produk produk = produkContext.GetProdukFromDatabase().FirstOrDefault(p => p.Id == detail.IdProduk);
+                if (produk != null)
+                {
+                    produk.Stok -= detail.JumlahProduk;
+                    produkContext.UpdateStok(produk.Id, produk.Stok);
+                    produkContext.TransaksiProduk(detail.IdProduk, detail.JumlahProduk);
+                }
+            }
+
+            keranjangBelanja.Clear();
+            flowLayoutCart.Controls.Clear();
+            totalHargaTrs.Text = "Rp. 0";
+
+            MessageBox.Show("Transaksi berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+
     }
 }

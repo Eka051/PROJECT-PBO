@@ -61,7 +61,7 @@ namespace COFFE_SHARP.Models
 
         public bool Validate(string username, string password)
         {
-            string query = "SELECT password_admin FROM admin WHERE username_admin = @username";
+            string query = "SELECT id_admin, password_admin FROM admin WHERE username_admin = @username";
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
             {
                 try
@@ -75,7 +75,11 @@ namespace COFFE_SHARP.Models
                             if (reader.Read())
                             {
                                 string hashedPassword = (string)reader["password_admin"];
-                                return VerifikasiPassword(password, hashedPassword);
+                                if (VerifikasiPassword(password, hashedPassword))
+                                {
+                                    SessionInfo.idAdmin = Convert.ToInt32(reader["id_admin"]);
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -112,5 +116,39 @@ namespace COFFE_SHARP.Models
                 return builder.ToString();
             }
         }
+
+        public int GetIDadmin(string username)
+        {
+            int adminId = -1;
+            string query = "SELECT id_admin FROM admin WHERE username_admin = @username";
+            using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
+            {
+                try
+                {
+                    conn.Open();
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", username);
+                        using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                adminId = Convert.ToInt32(reader["id_admin"]);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Terjadi kesalahan saat mendapatkan ID admin: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return adminId;
+        }
+
     }
 }

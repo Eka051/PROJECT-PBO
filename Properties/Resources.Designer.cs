@@ -213,6 +213,26 @@ namespace COFFE_SHARP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconPrint {
+            get {
+                object obj = ResourceManager.GetObject("iconPrint", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconPrint1 {
+            get {
+                object obj = ResourceManager.GetObject("iconPrint1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap kelolaProdukBlack {
             get {
                 object obj = ResourceManager.GetObject("kelolaProdukBlack", resourceCulture);
@@ -306,6 +326,16 @@ namespace COFFE_SHARP.Properties {
         internal static System.Drawing.Bitmap qris {
             get {
                 object obj = ResourceManager.GetObject("qris", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap qris1 {
+            get {
+                object obj = ResourceManager.GetObject("qris1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
