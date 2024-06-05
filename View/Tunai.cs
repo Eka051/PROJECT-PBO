@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace COFFE_SHARP.View
 {
-    public partial class Tunai : UserControl
+    public partial class Tunai : Form
     {
         public TextBox TextBoxNominal => textBoxNominal;
         Pembayaran pembayaran;
@@ -26,12 +26,27 @@ namespace COFFE_SHARP.View
         {
             InitializeComponent();
             this.ucTransaksi = ucTransaksi;
+            this.pembayaran = pembayaran;
             this.IDMetode = IDMetode;
-            labelTotalHarga.Text = ucTransaksi.GetTotalHarga().ToString("N0");
+            if (ucTransaksi != null)
+            {
+                labelTotalHarga.Text = "Rp. " + ucTransaksi.GetTotalHarga().ToString("N0", CultureInfo.CurrentCulture);
+                UpdateKembalian();
+            }
+            else
+            {
+                buttonLanjutkan.Enabled = false;
+            }
             UpdateKembalian();
         }
 
-        private void buttonLanjutkan_Click(object sender, EventArgs e)
+
+        private void Tunai_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonLanjutkan_Click_1(object sender, EventArgs e)
         {
             decimal jumlahPembayaran;
 
@@ -50,27 +65,12 @@ namespace COFFE_SHARP.View
 
             MessageBox.Show("Pembayaran Berhasil!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ucTransaksi.SimpanTransaksi(IDMetode, jumlahPembayaran);
-            this.Hide();
-            Struk struk = new Struk();
+            Struk struk = new Struk(pembayaran);
             struk.Show();
+            this.Close();
         }
 
-        private void UpdateKembalian()
-        {
-            decimal jumlahPembayaran;
-            if (decimal.TryParse(textBoxNominal.Text, out jumlahPembayaran))
-            {
-                int totalHarga = ucTransaksi.GetTotalHarga();
-                decimal kembalian = jumlahPembayaran - totalHarga;
-                labelKembalian.Text = "Rp. " + kembalian.ToString("N0");
-            }
-            else
-            {
-                labelKembalian.Text = "Rp. 0";
-            }
-        }
-
-        private void textBoxNominal_TextChanged(object sender, EventArgs e)
+        private void textBoxNominal_TextChanged_1(object sender, EventArgs e)
         {
             if (!isFormatting)
             {
@@ -89,6 +89,19 @@ namespace COFFE_SHARP.View
             }
             UpdateKembalian();
         }
+        private void UpdateKembalian()
+        {
+            decimal jumlahPembayaran;
+            if (decimal.TryParse(textBoxNominal.Text, out jumlahPembayaran))
+            {
+                int totalHarga = ucTransaksi.GetTotalHarga();
+                decimal kembalian = jumlahPembayaran - totalHarga;
+                labelKembalian.Text = "Rp. " + kembalian.ToString("N0");
+            }
+            else
+            {
+                labelKembalian.Text = "Rp. 0";
+            }
+        }
     }
-
 }

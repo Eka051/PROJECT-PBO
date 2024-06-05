@@ -111,6 +111,7 @@
             hargaProduk.Name = "hargaProduk";
             hargaProduk.Size = new Size(438, 23);
             hargaProduk.TabIndex = 6;
+            hargaProduk.TextChanged += hargaProduk_TextChanged;
             // 
             // labelNama
             // 

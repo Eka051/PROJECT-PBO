@@ -11,12 +11,13 @@ namespace COFFE_SHARP.View
 {
     public partial class QRIS : Form
     {
-        string kode_qr = "https://steel-hans-porter-voters.trycloudflare.com";
+        string kode_qr = "https://0d3585ea-c013-415b-81f9-fe9c1cd54e92-00-34c19tioig74t.pike.replit.dev";
         private static readonly HttpClient client = new HttpClient();
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int IDMetode;
         UCTransaksi ucTransaksi;
         private decimal jumlahPembayaran;
+        private Pembayaran pembayaran;
 
         public QRIS(int iDMetode, UCTransaksi ucTransaksi)
         {
@@ -70,7 +71,7 @@ namespace COFFE_SHARP.View
                 ucTransaksi.SimpanTransaksi(IDMetode, jumlahPembayaran);
             }
 
-            Struk struk = new Struk();
+            Struk struk = new Struk(pembayaran);
             struk.Show();
         }
     }

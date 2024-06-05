@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,8 @@ namespace COFFE_SHARP
     {
         private IProdukContext produkContext;
         private OpenFileDialog openFileDialog;
-        public Produk Produk { get; private set; }
+        public Produk Produk;
+        private bool isFormatting = false;
 
         public EditProduk(IProdukContext produkContext, Produk produk)
         {
@@ -33,8 +35,7 @@ namespace COFFE_SHARP
         private void BtnSimpan_Click_1(object sender, EventArgs e)
         {
             Produk.Nama = namaProduk.Text;
-            //Produk.Harga = decimal.Parse(hargaProduk.Text);
-            if(!decimal.TryParse(hargaProduk.Text, out decimal harga))
+            if (!decimal.TryParse(hargaProduk.Text, out decimal harga))
             {
                 MessageBox.Show("Harga produk harus berupa angka.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -106,6 +107,30 @@ namespace COFFE_SHARP
         private void EditProduk_Load(object sender, EventArgs e)
         {
             LoadKategori();
+        }
+
+        private void hargaProduk_TextChanged(object sender, EventArgs e)
+        {
+            if (!isFormatting)
+            {
+                isFormatting = true;
+                int selectionStart = hargaProduk.SelectionStart;
+                int selectionLength = hargaProduk.SelectionLength;
+
+                string text = hargaProduk.Text.Replace(".", "").Replace(",", "");
+                if (decimal.TryParse(text, out decimal harga))
+                {
+                    hargaProduk.Text = harga.ToString("N0", CultureInfo.CurrentCulture);
+                    hargaProduk.SelectionStart = selectionStart + (hargaProduk.Text.Length - text.Length);
+                    hargaProduk.SelectionLength = selectionLength;
+                }
+                else
+                {
+                    hargaProduk.Text = "";
+                }
+
+                isFormatting = false;
+            }
         }
     }
 }

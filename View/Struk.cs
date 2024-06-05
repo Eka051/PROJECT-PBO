@@ -1,187 +1,106 @@
-﻿using System;
+﻿using COFFE_SHARP.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using COFFE_SHARP.Models;
 
 namespace COFFE_SHARP.View
 {
     public partial class Struk : Form
     {
-        private string Date;
+        private Transaksi newTransaksi;
         private TransaksiContext transaksiContext;
-        private Transaksi transaksiTerbaru;
+        private Tunai tunai;
+        private int IDMetode;
+        private UCTransaksi uCTransaksi;
+        private Pembayaran pembayaran;
+        private Bitmap memoryImage;
 
-        public Struk()
+        public Struk(Pembayaran pembayaran)
         {
             InitializeComponent();
             transaksiContext = new TransaksiContext();
-            transaksiTerbaru = transaksiContext.GetLatestTransaksi();
-
-            if (transaksiTerbaru != null)
+            tunai = new Tunai(IDMetode, uCTransaksi);
+            this.pembayaran = pembayaran;
+            newTransaksi = transaksiContext.GetLatestTransaksi();
+            if (newTransaksi != null)
             {
-                Date = transaksiTerbaru.TanggalTransaksi.ToString("d/MM/yyyy");
-                labelTanggal.Text = Date;
-                labelAdmin.Text = transaksiTerbaru.NamaAdmin;
+                labelTanggal.Text = newTransaksi.TanggalTransaksi.ToString("dd/MM/yyyy");
+                labelAdmin.Text = newTransaksi.NamaAdmin;
+                labelTotalHrg.Text = "Rp. " + newTransaksi.TotalHarga.ToString("N0");
 
-                DisplayTransaksiDetails();
+                int yPosition = 307;
+                foreach (var detail in newTransaksi.DetailTransaksiList)
+                {
+                    Produk produk = transaksiContext.GetProdukById(detail.IdProduk);
+                    string namaProduk = produk.Nama;
+                    Label labelItem = new Label();
+                    labelItem.Text = namaProduk;
+                    labelItem.Font = new Font("SF Pro Display", 13, FontStyle.Regular);
+                    labelItem.Location = new Point(65, yPosition);
+                    labelItem.AutoSize = true;
+                    panelStruk.Controls.Add(labelItem);
+
+                    Label labelHarga = new Label();
+                    labelHarga.Text = detail.HargaProduk.ToString("N0");
+                    labelHarga.Font = new Font("SF Pro Display", 13, FontStyle.Regular);
+                    labelHarga.Location = new Point(290, yPosition);
+                    panelStruk.Controls.Add(labelHarga);
+
+                    Label labelQuantity = new Label();
+                    labelQuantity.Text = detail.JumlahProduk.ToString();
+                    labelQuantity.Font = new Font("SF Pro Display", 13, FontStyle.Regular);
+                    labelQuantity.Location = new Point(459, yPosition);
+                    panelStruk.Controls.Add(labelQuantity);
+
+                    Label labelTotal = new Label();
+                    labelTotal.Text = (detail.HargaProduk * detail.JumlahProduk).ToString("N0");
+                    labelTotal.Font = new Font("SF Pro Display", 13, FontStyle.Regular);
+                    labelTotal.Location = new Point(585, yPosition);
+                    panelStruk.Controls.Add(labelTotal);
+
+                    yPosition += 24;
+                }
             }
-        }
-
-        private void DisplayTransaksiDetails()
-        {
-            panelPrint.Controls.Clear(); // Clear any existing controls in the panel
-
-            int yOffset = 10; // Initial offset for the first label
-            int labelHeight = 20; // Height of each label
-            int xOffsetNamaProduk = 10;
-            int xOffsetHarga = 200;
-            int xOffsetQty = 300;
-            int xOffsetTotalHarga = 400;
-
-            // Add header labels
-            Label lblHeaderNamaProduk = new Label
-            {
-                Text = "Nama Produk",
-                Location = new Point(xOffsetNamaProduk, yOffset),
-                Font = new Font(Font, FontStyle.Bold),
-                AutoSize = true
-            };
-            panelPrint.Controls.Add(lblHeaderNamaProduk);
-
-            Label lblHeaderHarga = new Label
-            {
-                Text = "Harga",
-                Location = new Point(xOffsetHarga, yOffset),
-                Font = new Font(Font, FontStyle.Bold),
-                AutoSize = true
-            };
-            panelPrint.Controls.Add(lblHeaderHarga);
-
-            Label lblHeaderQty = new Label
-            {
-                Text = "Quantity",
-                Location = new Point(xOffsetQty, yOffset),
-                Font = new Font(Font, FontStyle.Bold),
-                AutoSize = true
-            };
-            panelPrint.Controls.Add(lblHeaderQty);
-
-            Label lblHeaderTotalHarga = new Label
-            {
-                Text = "Total",
-                Location = new Point(xOffsetTotalHarga, yOffset),
-                Font = new Font(Font, FontStyle.Bold),
-                AutoSize = true
-            };
-            panelPrint.Controls.Add(lblHeaderTotalHarga);
-
-            yOffset += labelHeight + 10; 
-
-            decimal grandTotal = 0;
-
-            foreach (var detail in transaksiTerbaru.DetailTransaksiList)
-            {
-                string namaProduk = transaksiContext.GetProductNameById(detail.IdProduk);
-                decimal totalHarga = detail.JumlahProduk * detail.HargaProduk;
-                grandTotal += totalHarga;
-
-                Label lblNamaProduk = new Label
-                {
-                    Text = namaProduk,
-                    Location = new Point(xOffsetNamaProduk, yOffset),
-                    AutoSize = true
-                };
-                panelPrint.Controls.Add(lblNamaProduk);
-
-                Label lblHarga = new Label
-                {
-                    Text = detail.HargaProduk.ToString("N0"),
-                    Location = new Point(xOffsetHarga, yOffset),
-                    AutoSize = true
-                };
-                panelPrint.Controls.Add(lblHarga);
-
-                Label lblQty = new Label
-                {
-                    Text = detail.JumlahProduk.ToString(),
-                    Location = new Point(xOffsetQty, yOffset),
-                    AutoSize = true
-                };
-                panelPrint.Controls.Add(lblQty);
-
-                Label lblTotalHarga = new Label
-                {
-                    Text = totalHarga.ToString("N0"),
-                    Location = new Point(xOffsetTotalHarga, yOffset),
-                    AutoSize = true
-                };
-                panelPrint.Controls.Add(lblTotalHarga);
-
-                yOffset += labelHeight + 5;
-            }
-
-            Label lblGrandTotal = new Label
-            {
-                Text = $"Total: Rp. {grandTotal.ToString("N0")}",
-                Location = new Point(xOffsetTotalHarga, yOffset + 20),
-                Font = new Font(Font, FontStyle.Bold),
-                AutoSize = true
-            };
-            panelPrint.Controls.Add(lblGrandTotal);
         }
 
         private void buttonPrint_Click(object sender, EventArgs e)
         {
-            Print(panelPrint);
+            PrintStrukToPdf();
         }
 
-        private void Print(Panel panel)
+        private void PrintStrukToPdf()
         {
-            PrintDocument printDocument = new PrintDocument();
-            printDocument.DefaultPageSettings.PaperSize = new PaperSize("A4", 2150, 2970); 
-
-            printDocument.PrintPage += (sender, e) =>
+            using (PrintDocument pd = new PrintDocument())
             {
-                Bitmap bitmap = new Bitmap(panel.Width, panel.Height);
-                panel.DrawToBitmap(bitmap, new Rectangle(0, 0, panel.Width, panel.Height));
-
-                float scaleX = (float)e.PageBounds.Width / (float)bitmap.Width;
-                float scaleY = (float)e.PageBounds.Height / (float)bitmap.Height;
-                float scale = Math.Min(scaleX, scaleY);
-
-                int newWidth = (int)(bitmap.Width * scale);
-                int newHeight = (int)(bitmap.Height * scale);
-
-                int posX = (e.PageBounds.Width - newWidth) / 2;
-                int posY = (e.PageBounds.Height - newHeight) / 2;
-
-                e.Graphics.DrawImage(bitmap, posX, posY, newWidth, newHeight);
-            };
-
-            PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog
-            {
-                Document = printDocument
-            };
-
-            printPreviewDialog.ShowDialog();
+                pd.PrintPage += new PrintPageEventHandler(PrintPage);
+                pd.Print();
+            }
         }
 
-        private void CapturePanel(Panel panel)
+        private void PrintPage(object o, PrintPageEventArgs e)
         {
-            panel.Refresh();
-            Application.DoEvents();
-            memorying = new Bitmap(panel.Width, panel.Height);
-            panel.DrawToBitmap(memorying, new Rectangle(0, 0, panel.Width, panel.Height));
+            CaptureScreen();
+            e.Graphics.DrawImage(memoryImage, 0, 0);
         }
-        private Bitmap memorying;
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void CaptureScreen()
+        {
+            int width = panelStruk.Width;
+            int height = panelStruk.Height;
+
+            memoryImage = new Bitmap(width, height);
+            panelStruk.DrawToBitmap(memoryImage, new Rectangle(0, 0, width, height));
+        }
+
+        private void Struk_Load(object sender, EventArgs e)
         {
         }
     }

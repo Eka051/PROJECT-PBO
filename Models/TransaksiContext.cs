@@ -74,7 +74,6 @@ namespace COFFE_SHARP.Models
             return IDTransaksi;
         }
 
-
         public void SimpanTransaksi(Transaksi transaksi, DataPembayaran pembayaran)
         {
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
@@ -138,7 +137,6 @@ namespace COFFE_SHARP.Models
             }
         }
 
-
         public Transaksi GetLatestTransaksi()
         {
             Transaksi transaksi = null;
@@ -197,26 +195,32 @@ namespace COFFE_SHARP.Models
             return transaksi;
         }
 
-        public string GetProductNameById(int idProduk)
+        public Produk GetProdukById(int idProduk)
         {
-            string productName = string.Empty;
+            Produk produk = null;
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
             {
                 conn.Open();
-                string query = "SELECT nama_produk FROM produk WHERE id_produk = @idProduk";
+                string query = "SELECT nama_produk, harga FROM produk WHERE id_produk = @idProduk";
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("idProduk", idProduk);
-                    object result = cmd.ExecuteScalar();
-                    if (result != null)
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        productName = result.ToString();
+                        if (reader.Read())
+                        {
+                            produk = new Produk
+                            {
+                                Nama = reader.GetString(0),
+                                Harga = reader.GetDecimal(1)
+                            };
+                        }
                     }
                 }
             }
 
-            return productName;
+            return produk;
         }
 
     }

@@ -258,14 +258,32 @@ namespace COFFE_SHARP.Models
                 {
                     try
                     {
-                        string query_updateStok = "UPDATE produk SET stok = stok - @jumlah WHERE id_produk = @id";
-                        using (NpgsqlCommand cmd = new NpgsqlCommand(query_updateStok, conn))
+                        string query_getStok = "SELECT stok FROM produk WHERE id_produk = @id";
+                        using (NpgsqlCommand cmd = new NpgsqlCommand(query_getStok, conn))
                         {
                             cmd.Parameters.AddWithValue("id", idProduk);
-                            cmd.Parameters.AddWithValue("jumlah", jumlahTerjual);
-                            cmd.ExecuteNonQuery();
-                        }
+                            int currentStok = (int)cmd.ExecuteScalar();
 
+                            if (currentStok >= jumlahTerjual)
+                            {
+                                string query_updateStok = "UPDATE produk SET stok = stok - @jumlah WHERE id_produk = @id";
+                                using (NpgsqlCommand cmd_update = new NpgsqlCommand(query_updateStok, conn))
+                                {
+                                    cmd_update.Parameters.AddWithValue("id", idProduk);
+                                    cmd_update.Parameters.AddWithValue("jumlah", jumlahTerjual);
+                                    cmd_update.ExecuteNonQuery();
+                                }
+                            }
+                            else
+                            {
+                                string query_setStokToZero = "UPDATE produk SET stok = 0 WHERE id_produk = @id";
+                                using (NpgsqlCommand cmd_update = new NpgsqlCommand(query_setStokToZero, conn))
+                                {
+                                    cmd_update.Parameters.AddWithValue("id", idProduk);
+                                    cmd_update.ExecuteNonQuery();
+                                }
+                            }
+                        }
                         transaksiProduk.Commit();
                     }
                     catch (Exception)
@@ -275,7 +293,6 @@ namespace COFFE_SHARP.Models
                     }
                 }
             }
-
             OnProdukDiubah(EventArgs.Empty);
         }
 

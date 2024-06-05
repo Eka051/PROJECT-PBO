@@ -25,7 +25,7 @@ namespace COFFE_SHARP
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            this.produkContext = produkContext ?? throw new ArgumentNullException(nameof(produkContext));
+            this.produkContext = produkContext;
             LoadProducts();
             produkContext.ProdukDiubah += ProdukContext_ProdukDiubah;
         }
@@ -130,7 +130,15 @@ namespace COFFE_SHARP
 
             if (cartItemsById.TryGetValue(produk.Id, out Panel cartItem))
             {
-                UpdateCartItemQuantity(cartItem, 1);
+                if (jumlahProduk[produk.Id] + 1 > produk.Stok)
+                {
+                    jumlahProduk[produk.Id] = produk.Stok;
+                    UpdateCartItemQuantity(cartItem, 0); 
+                }
+                else
+                {
+                    UpdateCartItemQuantity(cartItem, 1);
+                }
             }
             else
             {
@@ -279,7 +287,8 @@ namespace COFFE_SHARP
                             }
                             else
                             {
-                                MessageBox.Show($"Stok produk tersisa hanya {produk.Stok}!", "EROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                jumlahProduk[produkId] = produk.Stok;
+                                txtJumlahProduk.Text = produk.Stok.ToString();
                             }
                         }
                     }
@@ -354,7 +363,18 @@ namespace COFFE_SHARP
         private void addTotal_Click(object sender, EventArgs e, TextBox txtJumlahProduk, int produkId)
         {
             int jumlah = int.Parse(txtJumlahProduk.Text);
-            jumlah++;
+            Produk produk = produkContext.GetProdukFromDatabase().FirstOrDefault(p => p.Id == produkId);
+            if (produk != null)
+            {
+                if (jumlah + 1 > produk.Stok)
+                {
+                    jumlah = produk.Stok;
+                }
+                else
+                {
+                    jumlah++;
+                }
+            }
             txtJumlahProduk.Text = jumlah.ToString();
             jumlahProduk[produkId] = jumlah;
             var detailTransaksi = keranjangBelanja.FirstOrDefault(dt => dt.IdProduk == produkId);
@@ -465,19 +485,18 @@ namespace COFFE_SHARP
                 if (produk != null)
                 {
                     produk.Stok -= detail.JumlahProduk;
-                    produkContext.UpdateStok(produk.Id, produk.Stok);
                     produkContext.TransaksiProduk(detail.IdProduk, detail.JumlahProduk);
                 }
             }
 
             keranjangBelanja.Clear();
+            cartItems.Clear();
+            cartItemsById.Clear();
+            jumlahProduk.Clear();
+
             flowLayoutCart.Controls.Clear();
             totalHargaTrs.Text = "Rp. 0";
-
-            MessageBox.Show("Transaksi berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoadProducts();
         }
-
-
-
     }
 }

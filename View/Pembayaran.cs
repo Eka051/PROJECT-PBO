@@ -14,32 +14,28 @@ namespace COFFE_SHARP.View
     public partial class Pembayaran : Form
     {
         UCTransaksi UCtransaksi;
-        Tunai Tunai;
+        Tunai tunai;
+        ProdukContext produkContext;
         public Pembayaran(UCTransaksi UCtransaksi, Tunai tunai)
         {
             InitializeComponent();
             this.UCtransaksi = UCtransaksi;
-            Tunai = new Tunai(1, UCtransaksi);
-            this.Controls.Add(tunai);
-            tunai.Visible = false;
+            this.produkContext = produkContext;
+            tunai = new Tunai(1, UCtransaksi);
         }
 
         private void btnQRIS_Click(object sender, EventArgs e)
         {
-            int IDMetode = 2;
-            QRIS qris = new QRIS(IDMetode, UCtransaksi);
+            QRIS qris = new QRIS(2, UCtransaksi);
             qris.Show();
             this.Close();
         }
 
         private void btnTunai_Click(object sender, EventArgs e)
         {
-            int IDMetode = 1;
-            Tunai tunai = new Tunai(IDMetode, UCtransaksi);
-            tunai.Dock = DockStyle.Fill;
-            this.Controls.Clear();
-            this.Controls.Add(tunai);
-            tunai.Visible = true;
+            Tunai tunai = new Tunai(1, UCtransaksi);
+            tunai.Show();
+            this.Close();
         }
 
     }
