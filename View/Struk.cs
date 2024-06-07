@@ -48,11 +48,12 @@ namespace COFFE_SHARP.View
                     labelItem.AutoSize = true;
                     panelStruk.Controls.Add(labelItem);
 
-                    Label labelHarga = new Label();
-                    labelHarga.Text = detail.HargaProduk.ToString("N0");
-                    labelHarga.Font = new Font("SF Pro Display", 13, FontStyle.Regular);
-                    labelHarga.Location = new Point(290, yPosition);
-                    panelStruk.Controls.Add(labelHarga);
+            int yOffset = 10; // Initial offset for the first label
+            int labelHeight = 20; // Height of each label
+            int xOffsetNamaProduk = 10;
+            int xOffsetHarga = 200;
+            int xOffsetQty = 300;
+            int xOffsetTotalHarga = 400;
 
                     Label labelQuantity = new Label();
                     labelQuantity.Text = detail.JumlahProduk.ToString();
