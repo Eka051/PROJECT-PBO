@@ -89,20 +89,41 @@ namespace COFFE_SHARP.Models
 
         public void HapusProduk(int id)
         {
-            string query_delete = "DELETE FROM produk WHERE id_produk = @id";
+            string query_delete_detail = "DELETE FROM detail_transaksi WHERE id_produk = @id";
+            string query_delete_produk = "DELETE FROM produk WHERE id_produk = @id";
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connStr))
             {
                 conn.Open();
-                using (NpgsqlCommand cmd = new NpgsqlCommand(query_delete, conn))
+                using (NpgsqlTransaction tran = conn.BeginTransaction())
                 {
-                    cmd.Parameters.AddWithValue("id", id);
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        using (NpgsqlCommand cmd = new NpgsqlCommand(query_delete_detail, conn))
+                        {
+                            cmd.Parameters.AddWithValue("id", id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        using (NpgsqlCommand cmd = new NpgsqlCommand(query_delete_produk, conn))
+                        {
+                            cmd.Parameters.AddWithValue("id", id);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                        throw new Exception("Error deleting product", ex);
+                    }
                 }
             }
 
             OnProdukDiubah(EventArgs.Empty);
         }
+
 
         public void EditProduk(Produk produk)
         {
@@ -248,6 +269,8 @@ namespace COFFE_SHARP.Models
 
             return totalProduk;
         }
+
+        
 
         public void TransaksiProduk(int idProduk, int jumlahTerjual)
         {

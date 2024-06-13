@@ -11,7 +11,7 @@ namespace COFFE_SHARP.View
 {
     public partial class QRIS : Form
     {
-        string kode_qr = "https://0d3585ea-c013-415b-81f9-fe9c1cd54e92-00-34c19tioig74t.pike.replit.dev";
+        string kode_qr = "https://hampton-mode-troubleshooting-bold.trycloudflare.com";
         private static readonly HttpClient client = new HttpClient();
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int IDMetode;
@@ -70,7 +70,6 @@ namespace COFFE_SHARP.View
             {
                 ucTransaksi.SimpanTransaksi(IDMetode, jumlahPembayaran);
             }
-
             Struk struk = new Struk(pembayaran);
             struk.Show();
         }

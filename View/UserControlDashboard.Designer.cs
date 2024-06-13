@@ -57,6 +57,7 @@
             pictureBox1 = new PictureBox();
             flowLayoutDashboard = new FlowLayoutPanel();
             vScrollBar1 = new VScrollBar();
+            buttonRekap = new Button();
             topPanel.SuspendLayout();
             panelSB.SuspendLayout();
             leftPanel.SuspendLayout();
@@ -81,7 +82,7 @@
             // 
             // panelSB
             // 
-            panelSB.BackgroundImage = Properties.Resources.searchBox;
+            panelSB.BackgroundImage = Properties.Resources.srcBox2;
             panelSB.BackgroundImageLayout = ImageLayout.Zoom;
             panelSB.Controls.Add(srcBox);
             panelSB.Location = new Point(396, 30);
@@ -93,10 +94,10 @@
             // 
             srcBox.BackColor = SystemColors.ControlLight;
             srcBox.BorderStyle = BorderStyle.None;
-            srcBox.Font = new Font("SF Pro Display", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            srcBox.Location = new Point(49, 15);
+            srcBox.Font = new Font("SF Pro Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            srcBox.Location = new Point(49, 13);
             srcBox.Name = "srcBox";
-            srcBox.Size = new Size(228, 20);
+            srcBox.Size = new Size(228, 23);
             srcBox.TabIndex = 2;
             srcBox.TextChanged += srcBox_TextChanged;
             // 
@@ -433,10 +434,31 @@
             vScrollBar1.Size = new Size(17, 825);
             vScrollBar1.TabIndex = 19;
             // 
+            // buttonRekap
+            // 
+            buttonRekap.AutoSize = true;
+            buttonRekap.BackColor = Color.SaddleBrown;
+            buttonRekap.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonRekap.Cursor = Cursors.Hand;
+            buttonRekap.Font = new Font("SF Pro Display", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonRekap.ForeColor = Color.White;
+            buttonRekap.Image = Properties.Resources.iconRecap;
+            buttonRekap.ImageAlign = ContentAlignment.MiddleLeft;
+            buttonRekap.Location = new Point(1562, 142);
+            buttonRekap.Name = "buttonRekap";
+            buttonRekap.Padding = new Padding(20, 0, 0, 0);
+            buttonRekap.Size = new Size(258, 58);
+            buttonRekap.TabIndex = 20;
+            buttonRekap.Text = "             Rekap Penjualan";
+            buttonRekap.TextAlign = ContentAlignment.MiddleLeft;
+            buttonRekap.UseVisualStyleBackColor = false;
+            buttonRekap.Click += buttonRekap_Click;
+            // 
             // UserControlDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(buttonRekap);
             Controls.Add(vScrollBar1);
             Controls.Add(flowLayoutDashboard);
             Controls.Add(panel3);
@@ -498,5 +520,6 @@
         private FlowLayoutPanel flowLayoutDashboard;
         private Label lblTotalProduk;
         private VScrollBar vScrollBar1;
+        private Button buttonRekap;
     }
 }

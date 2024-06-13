@@ -278,6 +278,7 @@
             btnRiwayatTrs.Text = "         Riwayat Transaksi";
             btnRiwayatTrs.TextAlign = ContentAlignment.MiddleLeft;
             btnRiwayatTrs.UseVisualStyleBackColor = false;
+            btnRiwayatTrs.Click += btnRiwayatTrs_Click;
             // 
             // panel1
             // 
@@ -298,9 +299,9 @@
             flowLayoutCart.Anchor = AnchorStyles.Top;
             flowLayoutCart.AutoScroll = true;
             flowLayoutCart.BackColor = SystemColors.ControlLightLight;
-            flowLayoutCart.Location = new Point(13, 71);
+            flowLayoutCart.Location = new Point(13, 103);
             flowLayoutCart.Name = "flowLayoutCart";
-            flowLayoutCart.Size = new Size(414, 602);
+            flowLayoutCart.Size = new Size(414, 570);
             flowLayoutCart.TabIndex = 24;
             // 
             // totalHargaTrs

@@ -35,7 +35,6 @@ namespace COFFE_SHARP.Models
                         return false;
                     }
                 }
-                conn.Close();
             }
 
             string query_insert = "INSERT INTO admin (id_admin, nama, username_admin, password_admin) VALUES (@id, @nama, @username, @password) ";
@@ -63,14 +62,14 @@ namespace COFFE_SHARP.Models
                     }
                 }
 
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(hashedPassword))
-                {
-                    return false;
-                }
+                //if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(hashedPassword))
+                //{
+                //    return false;
+                //}
 
-                conn.Close();
+                //conn.Close();
             }
-            return false;
+            //return false;
         }
 
         private int GenerateIdAdmin()

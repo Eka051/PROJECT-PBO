@@ -107,12 +107,12 @@ namespace COFFE_SHARP
 
         private void passwordBox_TextChanged(object sender, EventArgs e)
         {
-            passwordBox.PasswordChar = '*';
+            passwordBox.PasswordChar = '●';
         }
 
         private void confirmPass_TextChanged(object sender, EventArgs e)
         {
-            confirmPass.PasswordChar = '*';
+            confirmPass.PasswordChar = '●';
         }
 
         private void ClearTextBox()

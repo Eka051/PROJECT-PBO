@@ -117,11 +117,25 @@ namespace COFFE_SHARP
                 int selectionStart = hargaProduk.SelectionStart;
                 int selectionLength = hargaProduk.SelectionLength;
 
+                int unformattedCursorPos = selectionStart;
+
                 string text = hargaProduk.Text.Replace(".", "").Replace(",", "");
                 if (decimal.TryParse(text, out decimal harga))
                 {
                     hargaProduk.Text = harga.ToString("N0", CultureInfo.CurrentCulture);
-                    hargaProduk.SelectionStart = selectionStart + (hargaProduk.Text.Length - text.Length);
+
+                    int formattedCursorPos = 0;
+                    int unformattedIndex = 0;
+                    for (int i = 0; i < hargaProduk.Text.Length && unformattedIndex < unformattedCursorPos; i++)
+                    {
+                        if (char.IsDigit(hargaProduk.Text[i]))
+                        {
+                            unformattedIndex++;
+                        }
+                        formattedCursorPos++;
+                    }
+
+                    hargaProduk.SelectionStart = formattedCursorPos;
                     hargaProduk.SelectionLength = selectionLength;
                 }
                 else
@@ -132,5 +146,6 @@ namespace COFFE_SHARP
                 isFormatting = false;
             }
         }
+
     }
 }

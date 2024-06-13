@@ -247,6 +247,7 @@
             DoubleBuffered = true;
             Name = "UserControlLogin";
             Size = new Size(1920, 1080);
+            Load += UserControlLogin_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

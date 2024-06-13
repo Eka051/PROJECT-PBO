@@ -8,6 +8,7 @@ namespace COFFE_SHARP
     {
         MainForm mainForm;
         LoginAdminContext loginAdminContext;
+        IProdukContext produkContext;
 
         public UserControlLogin(MainForm mainForm, LoginAdminContext loginAdminContext)
         {
@@ -23,13 +24,19 @@ namespace COFFE_SHARP
         private void LoginAdminContext_dataChanged(object sender, EventArgs e)
         {
             var dataAdmin = loginAdminContext.GetDataAdmin();
+
+        }
+
+        private void LoginAdminContext_LoginSuccess(object sender, int idAdmin)
+        {
+            SessionInfo.idAdmin = idAdmin;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string username = usernameBox.Text;
             string password = passwordBox.Text;
-            
+
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Username dan Password tidak boleh kosong!", "FAILED", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -42,12 +49,12 @@ namespace COFFE_SHARP
                 MessageBox.Show("Login Berhasil!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearTextBox();
                 mainForm.ShowDashboard();
-                
             }
             else
             {
                 MessageBox.Show("Username atau Password salah!", "FAILED", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void ClearTextBox()
@@ -64,7 +71,12 @@ namespace COFFE_SHARP
 
         private void passwordBox_TextChanged(object sender, EventArgs e)
         {
-            passwordBox.PasswordChar = '*';
+            passwordBox.PasswordChar = '●';
+        }
+
+        private void UserControlLogin_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

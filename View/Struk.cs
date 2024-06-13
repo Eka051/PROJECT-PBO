@@ -19,6 +19,7 @@ namespace COFFE_SHARP.View
         private TransaksiContext transaksiContext;
         private Tunai tunai;
         private int IDMetode;
+        private int idAdmin = SessionInfo.idAdmin;
         private UCTransaksi uCTransaksi;
         private Pembayaran pembayaran;
         private Bitmap memoryImage;
@@ -30,6 +31,8 @@ namespace COFFE_SHARP.View
             tunai = new Tunai(IDMetode, uCTransaksi);
             this.pembayaran = pembayaran;
             newTransaksi = transaksiContext.GetLatestTransaksi();
+            panelStruk.Size = new Size(733, 820); 
+
             if (newTransaksi != null)
             {
                 labelTanggal.Text = newTransaksi.TanggalTransaksi.ToString("dd/MM/yyyy");
@@ -48,12 +51,11 @@ namespace COFFE_SHARP.View
                     labelItem.AutoSize = true;
                     panelStruk.Controls.Add(labelItem);
 
-            int yOffset = 10; // Initial offset for the first label
-            int labelHeight = 20; // Height of each label
-            int xOffsetNamaProduk = 10;
-            int xOffsetHarga = 200;
-            int xOffsetQty = 300;
-            int xOffsetTotalHarga = 400;
+                    Label labelHarga = new Label();
+                    labelHarga.Text = detail.HargaProduk.ToString("N0");
+                    labelHarga.Font = new Font("SF Pro Display", 13, FontStyle.Regular);
+                    labelHarga.Location = new Point(290, yPosition);
+                    panelStruk.Controls.Add(labelHarga);
 
                     Label labelQuantity = new Label();
                     labelQuantity.Text = detail.JumlahProduk.ToString();
@@ -74,22 +76,23 @@ namespace COFFE_SHARP.View
 
         private void buttonPrint_Click(object sender, EventArgs e)
         {
-            PrintStrukToPdf();
-        }
-
-        private void PrintStrukToPdf()
-        {
             using (PrintDocument pd = new PrintDocument())
             {
                 pd.PrintPage += new PrintPageEventHandler(PrintPage);
+                pd.DefaultPageSettings.PaperSize = new PaperSize("Custom", 733, 820);
+                pd.DefaultPageSettings.PrinterResolution = new PrinterResolution
+                {
+                    Kind = PrinterResolutionKind.High,
+                };
                 pd.Print();
             }
+            this.Close();
         }
 
         private void PrintPage(object o, PrintPageEventArgs e)
         {
             CaptureScreen();
-            e.Graphics.DrawImage(memoryImage, 0, 0);
+            e.Graphics.DrawImage(memoryImage, new Rectangle(0, 0, 733, 820), new Rectangle(0, 0, memoryImage.Width, memoryImage.Height), GraphicsUnit.Pixel);
         }
 
         private void CaptureScreen()
@@ -97,7 +100,8 @@ namespace COFFE_SHARP.View
             int width = panelStruk.Width;
             int height = panelStruk.Height;
 
-            memoryImage = new Bitmap(width, height);
+            memoryImage = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            memoryImage.SetResolution(1000, 1000); 
             panelStruk.DrawToBitmap(memoryImage, new Rectangle(0, 0, width, height));
         }
 

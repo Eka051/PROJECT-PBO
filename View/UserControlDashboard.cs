@@ -12,27 +12,40 @@ namespace COFFE_SHARP
         private MainForm mainForm;
         private readonly IProdukContext produkContext;
         private FlowLayoutPanel flowLayoutPanelproduk;
+        private TransaksiContext context;
+        private readonly LoginAdminContext loginAdminContext;
 
-        public UserControlDashboard(MainForm mainForm, IProdukContext produkContext)
+        public UserControlDashboard(MainForm mainForm, IProdukContext produkContext, LoginAdminContext loginAdminContext)
         {
             InitializeComponent();
             this.mainForm = mainForm;
             this.produkContext = produkContext;
+            this.loginAdminContext = loginAdminContext;
+            this.context = new TransaksiContext();
             produkContext.ProdukDiubah += ProdukContext_ProdukDiubah;
+            loginAdminContext.AdminLoggedIn += OnAdminLoggedIn;
             LoadProducts();
-            LoadTotalProduk();
             flowLayoutPanelproduk = flowLayoutDashboard;
         }
 
         private void ProdukContext_ProdukDiubah(object? sender, EventArgs e)
         {
             LoadProducts();
-            LoadTotalProduk();
+            LoadAllTotal();
         }
 
-        private void LoadTotalProduk()
+        private void LoadAllTotal()
         {
             lblTotalProduk.Text = produkContext.TotalProduk().ToString();
+            lblTotalPenjualan.Text = context.TotalProdukTerjual().ToString();
+            lblTotalPenghasilan.Text = "Rp. " + context.TotalPendapatan().ToString("N0");
+        }
+
+        private void OnAdminLoggedIn(object sender, int adminId)
+        {
+            SessionInfo.idAdmin = adminId;
+            LoadAllTotal();
+            LoadProducts();
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -63,7 +76,6 @@ namespace COFFE_SHARP
                 mainForm.ShowLogin();
             }
         }
-
 
         private Panel CreateProductPanel(Produk produk)
         {
@@ -121,7 +133,7 @@ namespace COFFE_SHARP
             flowLayoutDashboard.Controls.Clear();
 
             List<Produk> products = produkContext.GetProdukFromDatabase();
-            if(!string.IsNullOrEmpty(filter))
+            if (!string.IsNullOrEmpty(filter))
             {
                 products = products.Where(p => p.Nama.ToLower().Contains(filter.ToLower())).ToList();
             }
@@ -144,5 +156,9 @@ namespace COFFE_SHARP
             LoadProducts(filter);
         }
 
+        private void buttonRekap_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowRekapPenjualan();
+        }
     }
 }

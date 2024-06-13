@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Struk));
             printDocument1 = new System.Drawing.Printing.PrintDocument();
-            printPreviewDialog1 = new PrintPreviewDialog();
             buttonPrint = new Button();
             pictureBox1 = new PictureBox();
             label1 = new Label();
@@ -52,16 +50,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelStruk.SuspendLayout();
             SuspendLayout();
-            // 
-            // printPreviewDialog1
-            // 
-            printPreviewDialog1.AutoScrollMargin = new Size(0, 0);
-            printPreviewDialog1.AutoScrollMinSize = new Size(0, 0);
-            printPreviewDialog1.ClientSize = new Size(400, 300);
-            printPreviewDialog1.Enabled = true;
-            printPreviewDialog1.Icon = (Icon)resources.GetObject("printPreviewDialog1.Icon");
-            printPreviewDialog1.Name = "printPreviewDialog1";
-            printPreviewDialog1.Visible = false;
             // 
             // buttonPrint
             // 
@@ -279,7 +267,6 @@
         #endregion
 
         private System.Drawing.Printing.PrintDocument printDocument1;
-        private PrintPreviewDialog printPreviewDialog1;
         private Button buttonPrint;
         private PictureBox pictureBox1;
         private Label label1;

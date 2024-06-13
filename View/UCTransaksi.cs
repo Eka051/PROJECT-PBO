@@ -20,6 +20,7 @@ namespace COFFE_SHARP
         private Dictionary<int, int> jumlahProduk = new Dictionary<int, int>();
         private Dictionary<int, Panel> cartItemsById = new Dictionary<int, Panel>();
         private List<DetailTransaksi> keranjangBelanja = new List<DetailTransaksi>();
+        private int idAdmin = SessionInfo.idAdmin;
 
         public UCTransaksi(MainForm mainForm, IProdukContext produkContext)
         {
@@ -104,6 +105,7 @@ namespace COFFE_SHARP
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
+
             Button BtnAdd = new Button
             {
                 BackgroundImage = Properties.Resources.addTransaction,
@@ -133,7 +135,7 @@ namespace COFFE_SHARP
                 if (jumlahProduk[produk.Id] + 1 > produk.Stok)
                 {
                     jumlahProduk[produk.Id] = produk.Stok;
-                    UpdateCartItemQuantity(cartItem, 0); 
+                    UpdateCartItemQuantity(cartItem, 0);
                 }
                 else
                 {
@@ -497,6 +499,11 @@ namespace COFFE_SHARP
             flowLayoutCart.Controls.Clear();
             totalHargaTrs.Text = "Rp. 0";
             LoadProducts();
+        }
+
+        private void btnRiwayatTrs_Click(object sender, EventArgs e)
+        {
+            mainForm.ShowRiwayatTransaksi();
         }
     }
 }
