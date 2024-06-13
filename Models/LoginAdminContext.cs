@@ -90,10 +90,6 @@ namespace COFFE_SHARP.Models
                 {
                     MessageBox.Show("Terjadi kesalahan saat memvalidasi login: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                //finally
-                //{
-                //    conn.Close();
-                //}
             }
             return false;
         }
